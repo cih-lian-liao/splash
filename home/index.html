@@ -320,7 +320,7 @@
             showLoading();
             try {
                 // Use local mock data instead of external API
-                const response = await fetch('./data/locations.json');
+                const response = await fetch('../data/locations.json');
                 const data = await response.json();
 
                 // Store current map state
@@ -442,7 +442,7 @@
         // Load weather data
         async function loadWeatherData() {
             try {
-                const response = await fetch('./data/weather.json');
+                const response = await fetch('../data/weather.json');
                 const weatherData = await response.json();
                 
                 // Update weather display
