@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Splash - 洪水風險管理平台</title>
+    <meta name="description" content="Splash 是一個智能洪水風險管理平台，提供實時天氣監測、風險評估和安全資訊。">
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="navbar/navbar.js"></script>
+    <style>
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+            margin-top: 80px;
+        }
+        
+        .hero-title {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.3em;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+        
+        .feature-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .feature-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+        
+        .cta-button:hover {
+            background: #2980b9;
+        }
+        
+        .cta-section {
+            background: #f8f9fa;
+            padding: 60px 20px;
+            text-align: center;
+        }
+        
+        .cta-title {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn-primary {
+            background: #e74c3c;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: background 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background: #c0392b;
+        }
+        
+        .btn-secondary {
+            background: #27ae60;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: background 0.3s ease;
+        }
+        
+        .btn-secondary:hover {
+            background: #229954;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5em;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="navbar"></div>
+    
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <h1 class="hero-title">🌊 Splash</h1>
+        <p class="hero-subtitle">智能洪水風險管理平台</p>
+        <p>實時天氣監測 • 風險評估 • 安全資訊</p>
+    </section>
+    
+    <!-- Features Section -->
+    <section class="feature-grid">
+        <div class="feature-card">
+            <div class="feature-icon">📍</div>
+            <h3 class="feature-title">洪水風險地圖</h3>
+            <p class="feature-description">即時顯示區域洪水風險等級，幫助您了解當前安全狀況。</p>
+            <a href="home/" class="cta-button">查看地圖</a>
+        </div>
+        
+        <div class="feature-card">
+            <div class="feature-icon">🅿️</div>
+            <h3 class="feature-title">安全停車資訊</h3>
+            <p class="feature-description">提供安全停車位置資訊，避免車輛在洪水期間受損。</p>
+            <a href="parking/" class="cta-button">查看停車</a>
+        </div>
+        
+        <div class="feature-card">
+            <div class="feature-icon">👥</div>
+            <h3 class="feature-title">社區安全報告</h3>
+            <p class="feature-description">社區成員分享的安全狀況報告，即時了解區域動態。</p>
+            <a href="community/" class="cta-button">查看報告</a>
+        </div>
+        
+        <div class="feature-card">
+            <div class="feature-icon">📞</div>
+            <h3 class="feature-title">緊急聯絡資訊</h3>
+            <p class="feature-description">重要緊急聯絡電話和避難所資訊，確保安全無虞。</p>
+            <a href="resources/" class="cta-button">查看聯絡</a>
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2 class="cta-title">開始使用 Splash</h2>
+        <p style="font-size: 1.2em; color: #666; margin-bottom: 40px;">
+            立即體驗智能洪水風險管理，保護您和家人的安全
+        </p>
+        <div class="cta-buttons">
+            <a href="home/" class="btn-primary">🚀 立即開始</a>
+            <a href="parking/" class="btn-secondary">🅿️ 安全停車</a>
+        </div>
+    </section>
+</body>
+</html>
