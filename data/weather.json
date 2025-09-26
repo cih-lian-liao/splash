@@ -1,0 +1,60 @@
+{
+  "current": {
+    "temperature": 18,
+    "humidity": 75,
+    "rainfall": 2.5,
+    "condition": "Light Rain",
+    "windSpeed": 12,
+    "pressure": 1013
+  },
+  "forecast": [
+    {
+      "day": "Today",
+      "high": 20,
+      "low": 15,
+      "rainfall": 5.2,
+      "condition": "Heavy Rain",
+      "floodRisk": "High"
+    },
+    {
+      "day": "Tomorrow",
+      "high": 22,
+      "low": 16,
+      "rainfall": 1.8,
+      "condition": "Cloudy",
+      "floodRisk": "Medium"
+    },
+    {
+      "day": "Day 3",
+      "high": 25,
+      "low": 18,
+      "rainfall": 0.5,
+      "condition": "Partly Cloudy",
+      "floodRisk": "Low"
+    },
+    {
+      "day": "Day 4",
+      "high": 23,
+      "low": 17,
+      "rainfall": 0.0,
+      "condition": "Sunny",
+      "floodRisk": "Low"
+    },
+    {
+      "day": "Day 5",
+      "high": 21,
+      "low": 14,
+      "rainfall": 3.1,
+      "condition": "Rain",
+      "floodRisk": "Medium"
+    }
+  ],
+  "alerts": [
+    {
+      "type": "Flood Warning",
+      "severity": "High",
+      "message": "Heavy rainfall expected in the next 24 hours. Avoid low-lying areas.",
+      "expires": "2024-09-28T12:00:00Z"
+    }
+  ]
+}

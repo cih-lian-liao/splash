@@ -154,6 +154,49 @@
         .toast.dangerous {
             background-color: #dc3545; /* Dangerous color */
         }
+        
+        /* Weather Info Styles */
+        .weather-info {
+            text-align: left;
+        }
+        
+        .weather-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .weather-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+        }
+        
+        .weather-label {
+            font-weight: bold;
+            color: #555;
+        }
+        
+        .weather-value {
+            color: #333;
+        }
+        
+        #flood-risk {
+            font-weight: bold;
+        }
+        
+        .flood-risk-high {
+            color: #dc3545;
+        }
+        
+        .flood-risk-medium {
+            color: #ffc107;
+        }
+        
+        .flood-risk-low {
+            color: #28a745;
+        }
     </style>
 </head>
 <body>
@@ -177,6 +220,29 @@
             <div class="controls">
                 <button class="danger-btn" id="danger-btn">Mark Dangerous</button>
                 <button class="safe-btn" id="safe-btn">Mark Safe</button>
+            </div>
+            
+            <!-- Weather Information -->
+            <div class="weather-info" id="weather-info" style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; display: none;">
+                <h3>🌤️ Current Weather</h3>
+                <div class="weather-details">
+                    <div class="weather-item">
+                        <span class="weather-label">Temperature:</span>
+                        <span class="weather-value" id="temperature">--°C</span>
+                    </div>
+                    <div class="weather-item">
+                        <span class="weather-label">Rainfall:</span>
+                        <span class="weather-value" id="rainfall">--mm</span>
+                    </div>
+                    <div class="weather-item">
+                        <span class="weather-label">Condition:</span>
+                        <span class="weather-value" id="condition">--</span>
+                    </div>
+                    <div class="weather-item">
+                        <span class="weather-label">Flood Risk:</span>
+                        <span class="weather-value" id="flood-risk">--</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -253,7 +319,8 @@
         async function getStamps(latlng) {
             showLoading();
             try {
-                const response = await fetch('https://ai.oshop.io/gen/api/get/Locations');
+                // Use local mock data instead of external API
+                const response = await fetch('./data/locations.json');
                 const data = await response.json();
 
                 // Store current map state
@@ -267,7 +334,11 @@
                     }
                 });
 
-                data.forEach(location => {
+                // Load user locations from localStorage
+                const userLocations = JSON.parse(localStorage.getItem('userLocations') || '[]');
+                const allLocations = [...data, ...userLocations];
+                
+                allLocations.forEach(location => {
                     const { lat, lng, point } = location;
                     const roundedLocation = roundCoords({ lat, lng });
                     autoStamp(roundedLocation, point, latlng);
@@ -318,17 +389,21 @@
 
             try {
                 const roundedLocation = roundCoords(latlng);
-                await fetch('https://ai.oshop.io/gen/api/set/Location', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        lat: roundedLocation.lat,
-                        lng: roundedLocation.lng,
-                        isDangerous: isDangerous
-                    })
-                });
+                
+                // Simulate API call with local storage
+                const newLocation = {
+                    lat: roundedLocation.lat,
+                    lng: roundedLocation.lng,
+                    point: isDangerous ? -5 : 5,
+                    description: isDangerous ? 'User marked as dangerous' : 'User marked as safe'
+                };
+                
+                // Store in localStorage for persistence
+                const existingLocations = JSON.parse(localStorage.getItem('userLocations') || '[]');
+                existingLocations.push(newLocation);
+                localStorage.setItem('userLocations', JSON.stringify(existingLocations));
+                
+                showToast(isDangerous ? '位置已標記為危險區域' : '位置已標記為安全區域', isDangerous ? 'dangerous' : 'safe');
 
                 // Refresh the map after creating a new stamp
                 await getStamps(latlng);
@@ -364,8 +439,52 @@
             });
         }
 
+        // Load weather data
+        async function loadWeatherData() {
+            try {
+                const response = await fetch('./data/weather.json');
+                const weatherData = await response.json();
+                
+                // Update weather display
+                document.getElementById('temperature').textContent = `${weatherData.current.temperature}°C`;
+                document.getElementById('rainfall').textContent = `${weatherData.current.rainfall}mm`;
+                document.getElementById('condition').textContent = weatherData.current.condition;
+                
+                // Calculate flood risk based on rainfall
+                let floodRisk = 'Low';
+                let riskClass = 'flood-risk-low';
+                if (weatherData.current.rainfall > 5) {
+                    floodRisk = 'High';
+                    riskClass = 'flood-risk-high';
+                } else if (weatherData.current.rainfall > 2) {
+                    floodRisk = 'Medium';
+                    riskClass = 'flood-risk-medium';
+                }
+                
+                const floodRiskElement = document.getElementById('flood-risk');
+                floodRiskElement.textContent = floodRisk;
+                floodRiskElement.className = riskClass;
+                
+                // Show weather info
+                document.getElementById('weather-info').style.display = 'block';
+                
+                // Show alerts if any
+                if (weatherData.alerts && weatherData.alerts.length > 0) {
+                    weatherData.alerts.forEach(alert => {
+                        showToast(`⚠️ ${alert.message}`, 'dangerous');
+                    });
+                }
+                
+            } catch (error) {
+                console.error('Error loading weather data:', error);
+            }
+        }
+
         // Initialize map and fetch stamps
         initializeMap();
+        
+        // Load weather data
+        loadWeatherData();
 
         // Mark Dangerous button: auto-stamp current location as dangerous
         dangerBtn.addEventListener('click', function() {

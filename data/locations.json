@@ -1,0 +1,50 @@
+[
+  {
+    "lat": 47.6062,
+    "lng": -122.3321,
+    "point": 8,
+    "description": "Downtown Seattle - Safe area with good drainage"
+  },
+  {
+    "lat": 47.6097,
+    "lng": -122.3331,
+    "point": -5,
+    "description": "Pioneer Square - Historical flood risk area"
+  },
+  {
+    "lat": 47.6205,
+    "lng": -122.3493,
+    "point": 6,
+    "description": "Capitol Hill - Elevated area, generally safe"
+  },
+  {
+    "lat": 47.6149,
+    "lng": -122.3361,
+    "point": -8,
+    "description": "Waterfront - High flood risk during storms"
+  },
+  {
+    "lat": 47.6038,
+    "lng": -122.3301,
+    "point": 4,
+    "description": "International District - Moderate risk"
+  },
+  {
+    "lat": 47.6258,
+    "lng": -122.3214,
+    "point": 9,
+    "description": "Queen Anne - High elevation, very safe"
+  },
+  {
+    "lat": 47.6080,
+    "lng": -122.3351,
+    "point": -3,
+    "description": "SODO District - Industrial area with drainage issues"
+  },
+  {
+    "lat": 47.6136,
+    "lng": -122.3421,
+    "point": 7,
+    "description": "First Hill - Good elevation, safe from flooding"
+  }
+]
