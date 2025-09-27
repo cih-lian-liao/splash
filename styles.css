@@ -7,7 +7,37 @@ html {
     font-family: 'Arial', sans-serif;
     background-color: #f4f4f4;
     color: #333;
+}
 
+/* Mobile-First Quick Access FAB */
+.quick-access-fab {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    text-decoration: none;
+    color: white;
+    font-size: 24px;
+    transition: all 0.3s ease;
+}
+
+.quick-access-fab:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4);
+}
+
+@media (min-width: 769px) {
+    .quick-access-fab {
+        display: none;
+    }
 }
 
 .app-container {
@@ -334,9 +364,22 @@ button {
     .controls {
         display: flex;
         flex-direction: column;
-        width: 50%;
+        gap: 10px;
+        width: 100%;
+        max-width: 300px;
         margin: auto;
         padding-top: 20px;
+    }
+    
+    .controls button {
+        width: 100%;
+        margin: 0;
+        min-height: 48px;
+        font-size: 16px;
+    }
+    
+    #map {
+        height: 300px;
     }
 
     .parking-list {

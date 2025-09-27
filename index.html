@@ -1,38 +1,63 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Splash - 洪水風險管理平台</title>
-    <meta name="description" content="Splash 是一個智能洪水風險管理平台，提供實時天氣監測、風險評估和安全資訊。">
+    <title>Splash - Flood Risk Management Platform</title>
+    <meta name="description" content="Splash is an intelligent flood risk management platform providing real-time weather monitoring, risk assessment, and safety information.">
     <link rel="stylesheet" href="styles.css">
     <script defer src="navbar/navbar.js"></script>
     <style>
         .hero-section {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 80px 20px;
+            padding: 60px 20px;
             text-align: center;
             margin-top: 80px;
         }
         
         .hero-title {
-            font-size: 3.5em;
-            margin-bottom: 20px;
+            font-size: 2.8em;
+            margin-bottom: 15px;
             font-weight: bold;
         }
         
         .hero-subtitle {
-            font-size: 1.3em;
-            margin-bottom: 40px;
+            font-size: 1.2em;
+            margin-bottom: 30px;
             opacity: 0.9;
+        }
+        
+        .quick-access {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+        
+        .quick-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 12px 20px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .quick-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
         }
         
         .feature-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            padding: 60px 20px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            padding: 40px 15px;
             max-width: 1200px;
             margin: 0 auto;
         }
@@ -40,7 +65,7 @@
         .feature-card {
             background: white;
             border-radius: 12px;
-            padding: 30px;
+            padding: 25px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             text-align: center;
             transition: transform 0.3s ease;
@@ -133,8 +158,37 @@
         }
         
         @media (max-width: 768px) {
+            .hero-section {
+                padding: 40px 15px;
+            }
+            
             .hero-title {
-                font-size: 2.5em;
+                font-size: 2.2em;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1em;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                padding: 30px 15px;
+            }
+            
+            .feature-card {
+                padding: 20px;
+            }
+            
+            .quick-access {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+            
+            .quick-btn {
+                width: 200px;
+                text-align: center;
             }
             
             .cta-buttons {
@@ -150,51 +204,61 @@
     <!-- Hero Section -->
     <section class="hero-section">
         <h1 class="hero-title">🌊 Splash</h1>
-        <p class="hero-subtitle">智能洪水風險管理平台</p>
-        <p>實時天氣監測 • 風險評估 • 安全資訊</p>
+        <p class="hero-subtitle">Flood Risk Management Platform</p>
+        <p>Real-time Weather • Risk Assessment • Safety Info</p>
+        
+        <!-- Quick Access Buttons -->
+        <div class="quick-access">
+            <a href="home/" class="quick-btn">📍 View Map</a>
+            <a href="parking/" class="quick-btn">🅿️ Safe Parking</a>
+            <a href="community/" class="quick-btn">👥 Reports</a>
+            <a href="resources/" class="quick-btn">📞 Emergency</a>
+        </div>
     </section>
     
     <!-- Features Section -->
     <section class="feature-grid">
         <div class="feature-card">
             <div class="feature-icon">📍</div>
-            <h3 class="feature-title">洪水風險地圖</h3>
-            <p class="feature-description">即時顯示區域洪水風險等級，幫助您了解當前安全狀況。</p>
-            <a href="home/" class="cta-button">查看地圖</a>
+            <h3 class="feature-title">Flood Risk Map</h3>
+            <p class="feature-description">Real-time flood risk assessment with interactive map showing current safety levels.</p>
+            <a href="home/" class="cta-button">View Map</a>
         </div>
         
         <div class="feature-card">
             <div class="feature-icon">🅿️</div>
-            <h3 class="feature-title">安全停車資訊</h3>
-            <p class="feature-description">提供安全停車位置資訊，避免車輛在洪水期間受損。</p>
-            <a href="parking/" class="cta-button">查看停車</a>
+            <h3 class="feature-title">Safe Parking</h3>
+            <p class="feature-description">Find secure parking locations to protect your vehicle during flood events.</p>
+            <a href="parking/" class="cta-button">Find Parking</a>
         </div>
         
         <div class="feature-card">
             <div class="feature-icon">👥</div>
-            <h3 class="feature-title">社區安全報告</h3>
-            <p class="feature-description">社區成員分享的安全狀況報告，即時了解區域動態。</p>
-            <a href="community/" class="cta-button">查看報告</a>
+            <h3 class="feature-title">Community Reports</h3>
+            <p class="feature-description">Real-time safety reports from community members sharing local conditions.</p>
+            <a href="community/" class="cta-button">View Reports</a>
         </div>
         
         <div class="feature-card">
             <div class="feature-icon">📞</div>
-            <h3 class="feature-title">緊急聯絡資訊</h3>
-            <p class="feature-description">重要緊急聯絡電話和避難所資訊，確保安全無虞。</p>
-            <a href="resources/" class="cta-button">查看聯絡</a>
+            <h3 class="feature-title">Emergency Contacts</h3>
+            <p class="feature-description">Essential emergency numbers and shelter information for your safety.</p>
+            <a href="resources/" class="cta-button">Get Help</a>
         </div>
     </section>
     
     <!-- CTA Section -->
     <section class="cta-section">
-        <h2 class="cta-title">開始使用 Splash</h2>
+        <h2 class="cta-title">Get Started with Splash</h2>
         <p style="font-size: 1.2em; color: #666; margin-bottom: 40px;">
-            立即體驗智能洪水風險管理，保護您和家人的安全
+            Experience intelligent flood risk management to protect you and your family
         </p>
         <div class="cta-buttons">
-            <a href="home/" class="btn-primary">🚀 立即開始</a>
-            <a href="parking/" class="btn-secondary">🅿️ 安全停車</a>
+            <a href="home/" class="btn-primary">🚀 Get Started</a>
+            <a href="parking/" class="btn-secondary">🅿️ Safe Parking</a>
         </div>
     </section>
+    <!-- Mobile Quick Access FAB -->
+    <a href="home/" class="quick-access-fab" title="Quick Access to Map">📍</a>
 </body>
 </html>
