@@ -12,7 +12,7 @@ html {
 /* Mobile-First Quick Access FAB */
 .quick-access-fab {
     position: fixed;
-    bottom: 20px;
+    bottom: 30px;
     right: 20px;
     width: 60px;
     height: 60px;
@@ -22,16 +22,30 @@ html {
     align-items: center;
     justify-content: center;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    z-index: 1000;
+    z-index: 2500;
     text-decoration: none;
     color: white;
     font-size: 24px;
     transition: all 0.3s ease;
+    border: 3px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
 }
 
 .quick-access-fab:hover {
     transform: scale(1.1);
     box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.quick-access-fab:active {
+    transform: scale(0.95);
+}
+
+/* Always show FAB on mobile, hide on desktop */
+@media (max-width: 768px) {
+    .quick-access-fab {
+        display: flex;
+    }
 }
 
 @media (min-width: 769px) {
