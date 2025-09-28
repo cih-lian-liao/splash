@@ -370,7 +370,7 @@
 
 .modal-content {
     background-color: white;
-    margin: 5% auto;
+    margin: 15% auto;
     padding: 0;
     border-radius: 12px;
     width: 90%;
@@ -566,7 +566,7 @@
     }
     
     .modal-content {
-        margin: 10% auto;
+        margin: 40% auto;
         width: 95%;
     }
     
