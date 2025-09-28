@@ -1,5 +1,29 @@
 /* Reports Page Specific Styles */
 
+/* Main Reports Card */
+.reports-main-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    margin: 20px 0;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.reports-main-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #007bff, #28a745, #ffc107, #dc3545);
+    border-radius: 16px 16px 0 0;
+}
+
 /* Header Section */
 .reports-header {
     text-align: center;
@@ -444,6 +468,12 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    .reports-main-card {
+        padding: 20px;
+        margin: 150px 10px;
+        border-radius: 12px;
+    }
+    
     .filter-controls {
         flex-direction: column;
         align-items: stretch;

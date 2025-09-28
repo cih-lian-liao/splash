@@ -14,95 +14,98 @@
     <div id="navbar"></div>
 
     <div class="app-container">
-        <!-- Header Section -->
-        <div class="reports-header">
-            <h2>🌊 Community Safety Reports</h2>
-            <p class="reports-subtitle">Real-time flood safety updates from the community</p>
-        </div>
+        <!-- Main Reports Card -->
+        <div class="reports-main-card">
+            <!-- Header Section -->
+            <div class="reports-header">
+                <h2>🌊 Community Safety Reports</h2>
+                <p class="reports-subtitle">Real-time flood safety updates from the community</p>
+            </div>
 
-        <!-- Quick Stats -->
-        <div class="stats-container">
-            <div class="stat-card">
-                <div class="stat-icon">✅</div>
-                <div class="stat-content">
-                    <div class="stat-number" id="safe-count">0</div>
-                    <div class="stat-label">Safe Areas</div>
+            <!-- Quick Stats -->
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-icon">✅</div>
+                    <div class="stat-content">
+                        <div class="stat-number" id="safe-count">0</div>
+                        <div class="stat-label">Safe Areas</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">⚠️</div>
+                    <div class="stat-content">
+                        <div class="stat-number" id="danger-count">0</div>
+                        <div class="stat-label">Danger Areas</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📊</div>
+                    <div class="stat-content">
+                        <div class="stat-number" id="total-reports">0</div>
+                        <div class="stat-label">Total Reports</div>
+                    </div>
                 </div>
             </div>
-            <div class="stat-card">
-                <div class="stat-icon">⚠️</div>
-                <div class="stat-content">
-                    <div class="stat-number" id="danger-count">0</div>
-                    <div class="stat-label">Danger Areas</div>
-                </div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon">📊</div>
-                <div class="stat-content">
-                    <div class="stat-number" id="total-reports">0</div>
-                    <div class="stat-label">Total Reports</div>
-                </div>
-            </div>
-        </div>
 
-        <!-- Filter Controls -->
-        <div class="filter-controls">
-            <div class="filter-group">
-                <label for="status-filter">Status:</label>
-                <select id="status-filter">
-                    <option value="all">All Reports</option>
-                    <option value="safe">Safe Areas</option>
-                    <option value="danger">Danger Areas</option>
-                    <option value="investigating">Under Investigation</option>
-                </select>
-            </div>
-            <div class="filter-group">
-                <label for="area-filter">Area:</label>
-                <select id="area-filter">
-                    <option value="all">All Areas</option>
-                    <option value="downtown">Downtown</option>
-                    <option value="capitol-hill">Capitol Hill</option>
-                    <option value="queen-anne">Queen Anne</option>
-                    <option value="waterfront">Waterfront</option>
-                    <option value="pioneer-square">Pioneer Square</option>
-                    <option value="sodo">SODO</option>
-                    <option value="first-hill">First Hill</option>
-                    <option value="international-district">International District</option>
-                </select>
-            </div>
-            <div class="filter-group">
-                <label for="time-filter">Time:</label>
-                <select id="time-filter">
-                    <option value="all">All Time</option>
-                    <option value="1h">Last Hour</option>
-                    <option value="6h">Last 6 Hours</option>
-                    <option value="24h">Last 24 Hours</option>
-                    <option value="7d">Last 7 Days</option>
-                </select>
-            </div>
-            <button id="add-report-btn" class="add-report-btn">📝 Add Report</button>
-        </div>
-
-        <!-- Reports List -->
-        <div class="reports-container" id="reports-container">
-            <div class="loading-message">Loading community reports...</div>
-        </div>
-
-        <!-- Weather Integration -->
-        <div class="weather-integration">
-            <h3>🌤️ Current Weather Conditions</h3>
-            <div class="weather-summary" id="weather-summary">
-                <div class="weather-item">
-                    <span class="weather-label">Temperature:</span>
-                    <span class="weather-value" id="current-temp">--°C</span>
+            <!-- Filter Controls -->
+            <div class="filter-controls">
+                <div class="filter-group">
+                    <label for="status-filter">Status:</label>
+                    <select id="status-filter">
+                        <option value="all">All Reports</option>
+                        <option value="safe">Safe Areas</option>
+                        <option value="danger">Danger Areas</option>
+                        <option value="investigating">Under Investigation</option>
+                    </select>
                 </div>
-                <div class="weather-item">
-                    <span class="weather-label">Rainfall:</span>
-                    <span class="weather-value" id="current-rainfall">--mm</span>
+                <div class="filter-group">
+                    <label for="area-filter">Area:</label>
+                    <select id="area-filter">
+                        <option value="all">All Areas</option>
+                        <option value="downtown">Downtown</option>
+                        <option value="capitol-hill">Capitol Hill</option>
+                        <option value="queen-anne">Queen Anne</option>
+                        <option value="waterfront">Waterfront</option>
+                        <option value="pioneer-square">Pioneer Square</option>
+                        <option value="sodo">SODO</option>
+                        <option value="first-hill">First Hill</option>
+                        <option value="international-district">International District</option>
+                    </select>
                 </div>
-                <div class="weather-item">
-                    <span class="weather-label">Flood Risk:</span>
-                    <span class="weather-value" id="flood-risk-level">--</span>
+                <div class="filter-group">
+                    <label for="time-filter">Time:</label>
+                    <select id="time-filter">
+                        <option value="all">All Time</option>
+                        <option value="1h">Last Hour</option>
+                        <option value="6h">Last 6 Hours</option>
+                        <option value="24h">Last 24 Hours</option>
+                        <option value="7d">Last 7 Days</option>
+                    </select>
+                </div>
+                <button id="add-report-btn" class="add-report-btn">📝 Add Report</button>
+            </div>
+
+            <!-- Reports List -->
+            <div class="reports-container" id="reports-container">
+                <div class="loading-message">Loading community reports...</div>
+            </div>
+
+            <!-- Weather Integration -->
+            <div class="weather-integration">
+                <h3>🌤️ Current Weather Conditions</h3>
+                <div class="weather-summary" id="weather-summary">
+                    <div class="weather-item">
+                        <span class="weather-label">Temperature:</span>
+                        <span class="weather-value" id="current-temp">--°C</span>
+                    </div>
+                    <div class="weather-item">
+                        <span class="weather-label">Rainfall:</span>
+                        <span class="weather-value" id="current-rainfall">--mm</span>
+                    </div>
+                    <div class="weather-item">
+                        <span class="weather-label">Flood Risk:</span>
+                        <span class="weather-value" id="flood-risk-level">--</span>
+                    </div>
                 </div>
             </div>
         </div>
