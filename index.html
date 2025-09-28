@@ -11,189 +11,123 @@
         .hero-section {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 60px 20px;
+            padding: 80px 20px;
             text-align: center;
             margin-top: 80px;
         }
         
         .hero-title {
-            font-size: 2.8em;
-            margin-bottom: 15px;
+            font-size: 3.5em;
+            margin-bottom: 20px;
             font-weight: bold;
         }
         
         .hero-subtitle {
-            font-size: 1.2em;
-            margin-bottom: 30px;
+            font-size: 1.4em;
+            margin-bottom: 40px;
             opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
         
-        .quick-access {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 30px;
+        .hero-description {
+            font-size: 1.1em;
+            margin-bottom: 50px;
+            opacity: 0.8;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
         }
         
-        .quick-btn {
+        .cta-button {
+            display: inline-block;
             background: rgba(255, 255, 255, 0.2);
             color: white;
-            padding: 12px 20px;
+            padding: 18px 40px;
             text-decoration: none;
-            border-radius: 25px;
+            border-radius: 30px;
             font-weight: bold;
+            font-size: 1.2em;
             border: 2px solid rgba(255, 255, 255, 0.3);
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
         }
         
-        .quick-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
-        }
-        
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            padding: 40px 15px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .feature-card {
-            background: white;
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            transition: transform 0.3s ease;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .feature-icon {
-            font-size: 3em;
-            margin-bottom: 20px;
-        }
-        
-        .feature-title {
-            font-size: 1.5em;
-            font-weight: bold;
-            margin-bottom: 15px;
-            color: #2c3e50;
-        }
-        
-        .feature-description {
-            color: #666;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-        
-        .cta-button {
-            display: inline-block;
-            background: #3498db;
-            color: white;
-            padding: 12px 30px;
-            text-decoration: none;
-            border-radius: 25px;
-            font-weight: bold;
-            transition: background 0.3s ease;
-        }
-        
         .cta-button:hover {
-            background: #2980b9;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
         }
         
-        .cta-section {
+        .info-section {
             background: #f8f9fa;
             padding: 60px 20px;
             text-align: center;
         }
         
-        .cta-title {
-            font-size: 2.5em;
+        .info-title {
+            font-size: 2.2em;
             margin-bottom: 20px;
             color: #2c3e50;
         }
         
-        .cta-buttons {
+        .info-description {
+            font-size: 1.1em;
+            color: #666;
+            line-height: 1.8;
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+        
+        .features-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .feature-item {
             display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
+            align-items: center;
+            gap: 15px;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
         
-        .btn-primary {
-            background: #e74c3c;
-            color: white;
-            padding: 15px 30px;
-            text-decoration: none;
-            border-radius: 25px;
-            font-weight: bold;
-            font-size: 1.1em;
-            transition: background 0.3s ease;
+        .feature-icon {
+            font-size: 2em;
+            min-width: 50px;
         }
         
-        .btn-primary:hover {
-            background: #c0392b;
-        }
-        
-        .btn-secondary {
-            background: #27ae60;
-            color: white;
-            padding: 15px 30px;
-            text-decoration: none;
-            border-radius: 25px;
-            font-weight: bold;
-            font-size: 1.1em;
-            transition: background 0.3s ease;
-        }
-        
-        .btn-secondary:hover {
-            background: #229954;
+        .feature-text {
+            color: #2c3e50;
+            font-weight: 500;
         }
         
         @media (max-width: 768px) {
             .hero-section {
-                padding: 40px 15px;
+                padding: 60px 15px;
             }
             
             .hero-title {
-                font-size: 2.2em;
+                font-size: 2.8em;
             }
             
             .hero-subtitle {
-                font-size: 1.1em;
+                font-size: 1.2em;
             }
             
-            .feature-grid {
+            .features-list {
                 grid-template-columns: 1fr;
-                gap: 15px;
-                padding: 30px 15px;
+                gap: 20px;
             }
             
-            .feature-card {
-                padding: 20px;
-            }
-            
-            .quick-access {
-                flex-direction: column;
-                align-items: center;
-                gap: 10px;
-            }
-            
-            .quick-btn {
-                width: 200px;
-                text-align: center;
-            }
-            
-            .cta-buttons {
-                flex-direction: column;
-                align-items: center;
+            .feature-item {
+                padding: 15px;
             }
         }
     </style>
@@ -205,57 +139,35 @@
     <section class="hero-section">
         <h1 class="hero-title">🌊 Splash</h1>
         <p class="hero-subtitle">Flood Risk Management Platform</p>
-        <p>Real-time Weather • Risk Assessment • Safety Info</p>
-        
-        <!-- Quick Access Buttons -->
-        <div class="quick-access">
-            <a href="map.html" class="quick-btn">📍 View Map</a>
-            <a href="parking.html" class="quick-btn">🅿️ Safe Parking</a>
-            <a href="reports.html" class="quick-btn">👥 Reports</a>
-            <a href="emergency.html" class="quick-btn">📞 Emergency</a>
-        </div>
+        <p class="hero-description">Real-time weather monitoring, risk assessment, and safety information to protect you and your family during flood events.</p>
+        <a href="map.html" class="cta-button">📍 View Risk Map</a>
     </section>
     
-    <!-- Features Section -->
-    <section class="feature-grid">
-        <div class="feature-card">
-            <div class="feature-icon">📍</div>
-            <h3 class="feature-title">Flood Risk Map</h3>
-            <p class="feature-description">Real-time flood risk assessment with interactive map showing current safety levels.</p>
-            <a href="map.html" class="cta-button">View Map</a>
-        </div>
-        
-        <div class="feature-card">
-            <div class="feature-icon">🅿️</div>
-            <h3 class="feature-title">Safe Parking</h3>
-            <p class="feature-description">Find secure parking locations to protect your vehicle during flood events.</p>
-            <a href="parking.html" class="cta-button">Find Parking</a>
-        </div>
-        
-        <div class="feature-card">
-            <div class="feature-icon">👥</div>
-            <h3 class="feature-title">Community Reports</h3>
-            <p class="feature-description">Real-time safety reports from community members sharing local conditions.</p>
-            <a href="reports.html" class="cta-button">View Reports</a>
-        </div>
-        
-        <div class="feature-card">
-            <div class="feature-icon">📞</div>
-            <h3 class="feature-title">Emergency Contacts</h3>
-            <p class="feature-description">Essential emergency numbers and shelter information for your safety.</p>
-            <a href="emergency.html" class="cta-button">Get Help</a>
-        </div>
-    </section>
-    
-    <!-- CTA Section -->
-    <section class="cta-section">
-        <h2 class="cta-title">Get Started with Splash</h2>
-        <p style="font-size: 1.2em; color: #666; margin-bottom: 40px;">
-            Experience intelligent flood risk management to protect you and your family
+    <!-- Info Section -->
+    <section class="info-section">
+        <h2 class="info-title">Why Choose Splash?</h2>
+        <p class="info-description">
+            Splash provides comprehensive flood risk management tools to help you stay safe and informed. 
+            Our platform combines real-time data with community insights to give you the most accurate and up-to-date information.
         </p>
-        <div class="cta-buttons">
-            <a href="map.html" class="btn-primary">🚀 Get Started</a>
-            <a href="parking.html" class="btn-secondary">🅿️ Safe Parking</a>
+        
+        <div class="features-list">
+            <div class="feature-item">
+                <div class="feature-icon">📍</div>
+                <div class="feature-text">Real-time flood risk mapping</div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">🅿️</div>
+                <div class="feature-text">Safe parking recommendations</div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">👥</div>
+                <div class="feature-text">Community safety reports</div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">📞</div>
+                <div class="feature-text">Emergency contact information</div>
+            </div>
         </div>
     </section>
     <!-- Mobile Quick Access FAB -->
