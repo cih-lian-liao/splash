@@ -13,6 +13,7 @@ body, html {
     flex-direction: column;
     align-items: center;
     padding: 20px;
+    margin-top: 80px; /* Add space for fixed navbar */
 }
 
 .card {
@@ -32,7 +33,7 @@ h1 {
 }
 
 #map {
-    height: 400px;
+    height: 500px;
     border-radius: 8px;
     width: 100%;
 }
@@ -212,4 +213,43 @@ button:disabled {
 
 .flood-risk-low {
     color: #28a745;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .app-container {
+        margin-top: 100px; /* More space for mobile navbar */
+        padding: 15px;
+    }
+    
+    .card {
+        width: 95%;
+        padding: 15px;
+    }
+    
+    #map {
+        height: 400px;
+    }
+    
+    .controls {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    button {
+        width: 100%;
+        min-width: auto;
+    }
+    
+    .legend {
+        bottom: 20px;
+        left: 5px;
+    }
+    
+    .toast {
+        top: 120px;
+        left: 50%;
+        margin-left: -125px;
+        min-width: 250px;
+    }
 }
