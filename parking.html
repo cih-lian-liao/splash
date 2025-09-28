@@ -14,66 +14,644 @@
     <div id="navbar"></div>
 
     <div class="app-container">
-        <h2>Safe Parking Locations</h2>
-        <div class="parking-list">
-            <div class="parking-item">
-                <h3><i>🅿️</i> Northgate Station Garage</h3>
-                <p><strong>Address:</strong>
-                    <a href="https://maps.app.goo.gl/L5QTnv3Wf4g4rDCq6" target="_blank" rel="noopener noreferrer">
-                        120 NE 103rd St, Seattle, WA 98125
-                    </a>
-                </p>
-                <p><strong>Spaces Available:</strong> 45</p>
-                <p><strong>Type:</strong> Outdoor</p>
+        <div class="parking-header">
+            <h2>🅿️ Safe Parking Near You</h2>
+            <p class="parking-subtitle">Find the closest safe parking locations based on your current safe area</p>
+        </div>
+
+            <div class="location-selector">
+                <label for="safe-area-select">Select your current safe area:</label>
+                <select id="safe-area-select">
+                    <option value="">Choose your location...</option>
+                    <option value="northgate">Northgate Area</option>
+                    <option value="shoreline">Shoreline Area</option>
+                    <option value="downtown">Downtown Seattle</option>
+                    <option value="lynnwood">Lynnwood Area</option>
+                    <option value="queen-anne">Queen Anne Area</option>
+                    <option value="capitol-hill">Capitol Hill</option>
+                    <option value="ballard">Ballard</option>
+                    <option value="fremont">Fremont</option>
+                    <option value="west-seattle">West Seattle</option>
+                    <option value="bellevue">Bellevue</option>
+                </select>
             </div>
 
-            <div class="parking-item">
-                <h3><i>🅿️</i> Shoreline South/148th Park and Ride</h3>
-                <p><strong>Address:</strong>
-                    <a href="https://maps.app.goo.gl/L5QTnv3Wf4g4rDCq6" target="_blank" rel="noopener noreferrer">
-                        5th Ave NE, Shoreline, WA 98155
-                    </a>
-                </p>
-                <p><strong>Spaces Available:</strong> 32</p>
-                <p><strong>Type:</strong> Indoor</p>
-            </div>
-
-            <div class="parking-item">
-                <h3><i>🅿️</i> Arizona Garage</h3>
-                <p><strong>Address:</strong>
-                    <a href="https://maps.app.goo.gl/b5DQJcfn48JZTSxB9" target="_blank" rel="noopener noreferrer">
-                        1001-1099 Thomas St, Seattle, WA 98109
-                    </a>
-                </p>
-                <p><strong>Spaces Available:</strong> 98</p>
-                <p><strong>Type:</strong> Indoor</p>
-            </div>
-
-            <div class="parking-item">
-                <h3><i>🅿️</i> Lynnwood Transit Center Garage</h3>
-                <p><strong>Address:</strong>
-                    <a href="https://maps.app.goo.gl/CE3LSAh4dYxATD579" target="_blank" rel="noopener noreferrer">
-                        20100 48th Ave W, Lynnwood, WA 98036
-                    </a>
-                </p>
-                <p><strong>Spaces Available:</strong> 246</p>
-                <p><strong>Type:</strong> Indoor</p>
-            </div>
-
-            <div class="parking-item">
-                <h3><i>🅿️</i> Ruby/Dawson Parking Garage</h3>
-                <p><strong>Address:</strong>
-                    <a href="https://maps.app.goo.gl/24DyRWT4npSMvMA28" target="_blank" rel="noopener noreferrer">
-                        1043 Harrison St, Seattle, WA 98109
-                    </a>
-                </p>
-                <p><strong>Spaces Available:</strong> 145</p>
-                <p><strong>Type:</strong> Indoor</p>
+        <div class="parking-results" id="parking-results">
+            <div class="no-selection">
+                <div class="no-selection-icon">📍</div>
+                <h3>Select your location to find nearby parking</h3>
+                <p>Choose your current safe area from the dropdown above to see the closest available parking options.</p>
             </div>
         </div>
     </div>
+    <!-- Safety Warning Modal -->
+    <div id="safety-modal" class="safety-modal">
+        <div class="safety-modal-content">
+            <div class="safety-modal-header">
+                <h3>⚠️ Safety Reminder</h3>
+            </div>
+            <div class="safety-modal-body">
+                <p>Before heading to this parking location, please ensure to:</p>
+                <ul>
+                    <li>📱 Double-check your route on the map</li>
+                    <li>🌊 Check for flood risks along the way</li>
+                    <li>🚗 Drive safely and stay alert</li>
+                    <li>📞 Contact emergency services if needed</li>
+                </ul>
+            </div>
+            <div class="safety-modal-footer">
+                <button id="safety-confirm-btn" class="safety-confirm-btn">Got it, I understand</button>
+                <button id="safety-cancel-btn" class="safety-cancel-btn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Mobile Quick Access FAB -->
-    <a href="map.html" class="quick-access-fab" title="Quick Access to Map">📍</a>
+    <a href="map.html" class="quick-access-fab" title="Quick Access to Map">📍<span class="fab-text">Map</span></a>
+
+    <script>
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Safety modal functionality
+            let pendingMapLink = null;
+            
+            // Show safety modal
+            function showSafetyModal(mapLink) {
+                pendingMapLink = mapLink;
+                document.getElementById('safety-modal').style.display = 'flex';
+            }
+            
+            // Hide safety modal
+            function hideSafetyModal() {
+                document.getElementById('safety-modal').style.display = 'none';
+                pendingMapLink = null;
+            }
+            
+            // Confirm button - proceed to map
+            document.getElementById('safety-confirm-btn').addEventListener('click', function() {
+                if (pendingMapLink) {
+                    window.open(pendingMapLink, '_blank', 'noopener,noreferrer');
+                }
+                hideSafetyModal();
+            });
+            
+            // Cancel button - close modal
+            document.getElementById('safety-cancel-btn').addEventListener('click', hideSafetyModal);
+            
+            // Close modal when clicking outside
+            document.getElementById('safety-modal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    hideSafetyModal();
+                }
+            });
+            
+            // Handle parking address link clicks
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('parking-address-link')) {
+                    e.preventDefault();
+                    const mapLink = e.target.getAttribute('href');
+                    showSafetyModal(mapLink);
+                }
+            });
+            // Parking data organized by safe areas
+            const parkingData = {
+            northgate: [
+                {
+                    name: "Northgate Station Garage",
+                    address: "120 NE 103rd St, Seattle, WA 98125",
+                    distance: "0.2 miles",
+                    spaces: 45,
+                    type: "Indoor",
+                    mapLink: "https://maps.app.goo.gl/L5QTnv3Wf4g4rDCq6"
+                },
+                {
+                    name: "Northgate Mall Parking",
+                    address: "401 NE Northgate Way, Seattle, WA 98125",
+                    distance: "0.5 miles",
+                    spaces: 1200,
+                    type: "Outdoor",
+                    mapLink: "https://maps.app.goo.gl/example1"
+                },
+                {
+                    name: "Northgate Plaza Parking",
+                    address: "10500 5th Ave NE, Seattle, WA 98125",
+                    distance: "0.8 miles",
+                    spaces: 150,
+                    type: "Outdoor",
+                    mapLink: "https://maps.app.goo.gl/example6"
+                },
+                {
+                    name: "Maple Leaf Community Center",
+                    address: "10201 Roosevelt Way NE, Seattle, WA 98125",
+                    distance: "1.1 miles",
+                    spaces: 80,
+                    type: "Outdoor",
+                    mapLink: "https://maps.app.goo.gl/example7"
+                }
+            ],
+            shoreline: [
+                {
+                    name: "Shoreline South/148th Park and Ride",
+                    address: "5th Ave NE, Shoreline, WA 98155",
+                    distance: "0.1 miles",
+                    spaces: 32,
+                    type: "Indoor",
+                    mapLink: "https://maps.app.goo.gl/L5QTnv3Wf4g4rDCq6"
+                },
+                {
+                    name: "Shoreline Community College",
+                    address: "16101 Greenwood Ave N, Shoreline, WA 98133",
+                    distance: "0.8 miles",
+                    spaces: 200,
+                    type: "Outdoor",
+                    mapLink: "https://maps.app.goo.gl/example2"
+                },
+                {
+                    name: "Shoreline City Hall Parking",
+                    address: "17500 Midvale Ave N, Shoreline, WA 98133",
+                    distance: "1.2 miles",
+                    spaces: 60,
+                    type: "Outdoor",
+                    mapLink: "https://maps.app.goo.gl/example8"
+                },
+                {
+                    name: "Richmond Beach Library",
+                    address: "19601 21st Ave NW, Shoreline, WA 98177",
+                    distance: "1.5 miles",
+                    spaces: 40,
+                    type: "Outdoor",
+                    mapLink: "https://maps.app.goo.gl/example9"
+                }
+            ],
+            downtown: [
+                {
+                    name: "Arizona Garage",
+                    address: "1001-1099 Thomas St, Seattle, WA 98109",
+                    distance: "0.3 miles",
+                    spaces: 98,
+                    type: "Indoor",
+                    mapLink: "https://maps.app.goo.gl/b5DQJcfn48JZTSxB9"
+                },
+                {
+                    name: "Ruby/Dawson Parking Garage",
+                    address: "1043 Harrison St, Seattle, WA 98109",
+                    distance: "0.4 miles",
+                    spaces: 145,
+                    type: "Indoor",
+                    mapLink: "https://maps.app.goo.gl/24DyRWT4npSMvMA28"
+                },
+                {
+                    name: "Westlake Center Garage",
+                    address: "400 Pine St, Seattle, WA 98101",
+                    distance: "0.6 miles",
+                    spaces: 200,
+                    type: "Indoor",
+                    mapLink: "https://maps.app.goo.gl/example10"
+                },
+                {
+                    name: "Pacific Place Garage",
+                    address: "600 Pine St, Seattle, WA 98101",
+                    distance: "0.7 miles",
+                    spaces: 300,
+                    type: "Indoor",
+                    mapLink: "https://maps.app.goo.gl/example11"
+                },
+                {
+                    name: "Seattle Central Library",
+                    address: "1000 4th Ave, Seattle, WA 98104",
+                    distance: "0.9 miles",
+                    spaces: 120,
+                    type: "Indoor",
+                    mapLink: "https://maps.app.goo.gl/example12"
+                }
+            ],
+            lynnwood: [
+                {
+                    name: "Lynnwood Transit Center Garage",
+                    address: "20100 48th Ave W, Lynnwood, WA 98036",
+                    distance: "0.1 miles",
+                    spaces: 246,
+                    type: "Indoor",
+                    mapLink: "https://maps.app.goo.gl/CE3LSAh4dYxATD579"
+                },
+                {
+                    name: "Alderwood Mall Parking",
+                    address: "3000 184th St SW, Lynnwood, WA 98037",
+                    distance: "1.2 miles",
+                    spaces: 800,
+                    type: "Outdoor",
+                    mapLink: "https://maps.app.goo.gl/example3"
+                },
+                {
+                    name: "Lynnwood Convention Center",
+                    address: "3711 196th St SW, Lynnwood, WA 98036",
+                    distance: "1.5 miles",
+                    spaces: 400,
+                    type: "Indoor",
+                    mapLink: "https://maps.app.goo.gl/example13"
+                },
+                {
+                    name: "Edmonds Community College",
+                    address: "20000 68th Ave W, Lynnwood, WA 98036",
+                    distance: "2.0 miles",
+                    spaces: 300,
+                    type: "Outdoor",
+                    mapLink: "https://maps.app.goo.gl/example14"
+                }
+            ],
+            "queen-anne": [
+                {
+                    name: "Queen Anne Garage",
+                    address: "500 1st Ave N, Seattle, WA 98109",
+                    distance: "0.2 miles",
+                    spaces: 85,
+                    type: "Indoor",
+                    mapLink: "https://maps.app.goo.gl/example4"
+                },
+                {
+                    name: "Seattle Center Parking",
+                    address: "305 Harrison St, Seattle, WA 98109",
+                    distance: "0.6 miles",
+                    spaces: 300,
+                    type: "Outdoor",
+                    mapLink: "https://maps.app.goo.gl/example5"
+                },
+                {
+                    name: "KeyArena Parking",
+                    address: "305 Harrison St, Seattle, WA 98109",
+                    distance: "0.7 miles",
+                    spaces: 250,
+                    type: "Indoor",
+                    mapLink: "https://maps.app.goo.gl/example15"
+                },
+                {
+                    name: "Queen Anne Library",
+                    address: "400 W Garfield St, Seattle, WA 98119",
+                    distance: "1.0 miles",
+                    spaces: 30,
+                    type: "Outdoor",
+                    mapLink: "https://maps.app.goo.gl/example16"
+                }
+            ],
+            "capitol-hill": [
+                {
+                    name: "Capitol Hill Station Garage",
+                    address: "1700 Broadway, Seattle, WA 98122",
+                    distance: "0.1 miles",
+                    spaces: 120,
+                    type: "Indoor",
+                    mapLink: "https://maps.app.goo.gl/example17"
+                },
+                {
+                    name: "Seattle University Parking",
+                    address: "901 12th Ave, Seattle, WA 98122",
+                    distance: "0.5 miles",
+                    spaces: 200,
+                    type: "Outdoor",
+                    mapLink: "https://maps.app.goo.gl/example18"
+                },
+                {
+                    name: "Cal Anderson Park",
+                    address: "1635 11th Ave, Seattle, WA 98122",
+                    distance: "0.8 miles",
+                    spaces: 50,
+                    type: "Outdoor",
+                    mapLink: "https://maps.app.goo.gl/example19"
+                },
+                {
+                    name: "Broadway Market",
+                    address: "401 Broadway E, Seattle, WA 98102",
+                    distance: "1.2 miles",
+                    spaces: 80,
+                    type: "Outdoor",
+                    mapLink: "https://maps.app.goo.gl/example20"
+                }
+            ],
+            "ballard": [
+                {
+                    name: "Ballard Commons Park",
+                    address: "5701 22nd Ave NW, Seattle, WA 98107",
+                    distance: "0.3 miles",
+                    spaces: 40,
+                    type: "Outdoor",
+                    mapLink: "https://maps.app.goo.gl/example21"
+                },
+                {
+                    name: "Ballard Library",
+                    address: "5614 22nd Ave NW, Seattle, WA 98107",
+                    distance: "0.5 miles",
+                    spaces: 60,
+                    type: "Outdoor",
+                    mapLink: "https://maps.app.goo.gl/example22"
+                },
+                {
+                    name: "Ballard Locks Parking",
+                    address: "3015 NW 54th St, Seattle, WA 98107",
+                    distance: "1.0 miles",
+                    spaces: 100,
+                    type: "Outdoor",
+                    mapLink: "https://maps.app.goo.gl/example23"
+                },
+                {
+                    name: "Golden Gardens Park",
+                    address: "8498 Seaview Pl NW, Seattle, WA 98117",
+                    distance: "1.5 miles",
+                    spaces: 150,
+                    type: "Outdoor",
+                    mapLink: "https://maps.app.goo.gl/example24"
+                }
+            ],
+            "fremont": [
+                {
+                    name: "Fremont Bridge Parking",
+                    address: "3401 Fremont Ave N, Seattle, WA 98103",
+                    distance: "0.2 miles",
+                    spaces: 30,
+                    type: "Outdoor",
+                    mapLink: "https://maps.app.goo.gl/example25"
+                },
+                {
+                    name: "Fremont Library",
+                    address: "731 N 35th St, Seattle, WA 98103",
+                    distance: "0.6 miles",
+                    spaces: 25,
+                    type: "Outdoor",
+                    mapLink: "https://maps.app.goo.gl/example26"
+                },
+                {
+                    name: "Gas Works Park",
+                    address: "2101 N Northlake Way, Seattle, WA 98103",
+                    distance: "0.8 miles",
+                    spaces: 80,
+                    type: "Outdoor",
+                    mapLink: "https://maps.app.goo.gl/example27"
+                },
+                {
+                    name: "Fremont Brewing Company",
+                    address: "1050 N 34th St, Seattle, WA 98103",
+                    distance: "1.0 miles",
+                    spaces: 20,
+                    type: "Outdoor",
+                    mapLink: "https://maps.app.goo.gl/example28"
+                }
+            ],
+            "west-seattle": [
+                {
+                    name: "West Seattle Junction",
+                    address: "4526 California Ave SW, Seattle, WA 98116",
+                    distance: "0.3 miles",
+                    spaces: 100,
+                    type: "Outdoor",
+                    mapLink: "https://maps.app.goo.gl/example29"
+                },
+                {
+                    name: "West Seattle Library",
+                    address: "2306 42nd Ave SW, Seattle, WA 98116",
+                    distance: "0.7 miles",
+                    spaces: 40,
+                    type: "Outdoor",
+                    mapLink: "https://maps.app.goo.gl/example30"
+                },
+                {
+                    name: "Alki Beach Park",
+                    address: "2665 Alki Ave SW, Seattle, WA 98116",
+                    distance: "1.2 miles",
+                    spaces: 120,
+                    type: "Outdoor",
+                    mapLink: "https://maps.app.goo.gl/example31"
+                },
+                {
+                    name: "Lincoln Park",
+                    address: "8011 Fauntleroy Way SW, Seattle, WA 98136",
+                    distance: "1.8 miles",
+                    spaces: 80,
+                    type: "Outdoor",
+                    mapLink: "https://maps.app.goo.gl/example32"
+                }
+            ],
+            "bellevue": [
+                {
+                    name: "Bellevue Square Mall",
+                    address: "575 Bellevue Square, Bellevue, WA 98004",
+                    distance: "0.2 miles",
+                    spaces: 2000,
+                    type: "Indoor",
+                    mapLink: "https://maps.app.goo.gl/example33"
+                },
+                {
+                    name: "Bellevue Transit Center",
+                    address: "10850 NE 6th St, Bellevue, WA 98004",
+                    distance: "0.5 miles",
+                    spaces: 300,
+                    type: "Indoor",
+                    mapLink: "https://maps.app.goo.gl/example34"
+                },
+                {
+                    name: "Bellevue Downtown Park",
+                    address: "10201 NE 4th St, Bellevue, WA 98004",
+                    distance: "0.8 miles",
+                    spaces: 150,
+                    type: "Outdoor",
+                    mapLink: "https://maps.app.goo.gl/example35"
+                },
+                {
+                    name: "Bellevue Library",
+                    address: "1111 110th Ave NE, Bellevue, WA 98004",
+                    distance: "1.2 miles",
+                    spaces: 80,
+                    type: "Outdoor",
+                    mapLink: "https://maps.app.goo.gl/example36"
+                }
+            ]
+        };
+
+            // Function to check if a location is safe based on map data
+            async function checkLocationSafety(lat, lng) {
+                try {
+                    // Load map data from locations.json
+                    const response = await fetch('assets/data/locations.json');
+                    const mapLocations = await response.json();
+                    
+                    // Check user-marked locations from localStorage
+                    const userLocations = JSON.parse(localStorage.getItem('userLocations') || '[]');
+                    const allLocations = [...mapLocations, ...userLocations];
+                    
+                    // Find the closest location within 0.01 degrees (approximately 1km)
+                    const threshold = 0.01;
+                    let closestLocation = null;
+                    let minDistance = Infinity;
+                    
+                    allLocations.forEach(location => {
+                        const distance = Math.sqrt(
+                            Math.pow(location.lat - lat, 2) + 
+                            Math.pow(location.lng - lng, 2)
+                        );
+                        if (distance < threshold && distance < minDistance) {
+                            minDistance = distance;
+                            closestLocation = location;
+                        }
+                    });
+                    
+                    if (closestLocation) {
+                        return {
+                            isSafe: closestLocation.point > 0,
+                            safetyScore: closestLocation.point,
+                            description: closestLocation.description
+                        };
+                    }
+                    
+                    // Default to safe if no nearby location found
+                    return { isSafe: true, safetyScore: 5, description: 'No safety data available' };
+                } catch (error) {
+                    console.error('Error checking location safety:', error);
+                    return { isSafe: true, safetyScore: 5, description: 'Safety check failed' };
+                }
+            }
+
+            // Function to render parking results
+            async function renderParkingResults(area) {
+                const resultsContainer = document.getElementById('parking-results');
+                
+                if (!area || !parkingData[area]) {
+                    resultsContainer.innerHTML = `
+                        <div class="no-selection">
+                            <div class="no-selection-icon">📍</div>
+                            <h3>Select your location to find nearby parking</h3>
+                            <p>Choose your current safe area from the dropdown above to see the closest available parking options.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                const parkingList = parkingData[area];
+                const safeParkingList = [];
+                
+                // Check safety for each parking location
+                for (const parking of parkingList) {
+                    // Extract coordinates from address (simplified approach)
+                    const safety = await checkLocationSafety(
+                        getLatFromAddress(parking.address),
+                        getLngFromAddress(parking.address)
+                    );
+                    
+                    if (safety.isSafe) {
+                        safeParkingList.push({
+                            ...parking,
+                            safetyScore: safety.safetyScore,
+                            safetyDescription: safety.description
+                        });
+                    }
+                }
+
+                if (safeParkingList.length === 0) {
+                    resultsContainer.innerHTML = `
+                        <div class="no-selection">
+                            <div class="no-selection-icon">⚠️</div>
+                            <h3>No safe parking found in this area</h3>
+                            <p>All parking locations in this area are currently marked as dangerous. Please try a different area or check the map for updated safety information.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                const parkingHTML = safeParkingList.map(parking => `
+                    <div class="parking-item ${getSafetyClass(parking.safetyScore)}">
+                        <div class="distance">${parking.distance}</div>
+                        <div class="safety-badge">${getSafetyIcon(parking.safetyScore)} ${getSafetyText(parking.safetyScore)}</div>
+                        <div class="parking-content">
+                            <h3><i>🅿️</i> ${parking.name}</h3>
+                        <p><strong>Address:</strong>
+                            <a href="${parking.mapLink}" target="_blank" rel="noopener noreferrer" class="parking-address-link" data-address="${parking.address}">
+                                ${parking.address}
+                            </a>
+                        </p>
+                            <p><strong>Spaces Available:</strong> ${parking.spaces}</p>
+                            <p><strong>Type:</strong> ${parking.type}</p>
+                        </div>
+                    </div>
+                `).join('');
+
+                resultsContainer.innerHTML = `
+                    <div class="parking-list">
+                        ${parkingHTML}
+                    </div>
+                `;
+            }
+
+            // Helper functions for safety assessment
+            function getLatFromAddress(address) {
+                // Simplified coordinate mapping for demo purposes
+                const coordMap = {
+                    'Northgate': { lat: 47.6993, lng: -122.3255 },
+                    'Shoreline': { lat: 47.7557, lng: -122.3412 },
+                    'Downtown': { lat: 47.6062, lng: -122.3321 },
+                    'Lynnwood': { lat: 47.8279, lng: -122.3053 },
+                    'Queen Anne': { lat: 47.6258, lng: -122.3214 },
+                    'Capitol Hill': { lat: 47.6205, lng: -122.3493 },
+                    'Ballard': { lat: 47.6689, lng: -122.3760 },
+                    'Fremont': { lat: 47.6510, lng: -122.3506 },
+                    'West Seattle': { lat: 47.5667, lng: -122.3767 },
+                    'Bellevue': { lat: 47.6101, lng: -122.2015 }
+                };
+                
+                for (const [area, coords] of Object.entries(coordMap)) {
+                    if (address.includes(area)) {
+                        return coords.lat;
+                    }
+                }
+                return 47.6062; // Default to Seattle center
+            }
+
+            function getLngFromAddress(address) {
+                const coordMap = {
+                    'Northgate': { lat: 47.6993, lng: -122.3255 },
+                    'Shoreline': { lat: 47.7557, lng: -122.3412 },
+                    'Downtown': { lat: 47.6062, lng: -122.3321 },
+                    'Lynnwood': { lat: 47.8279, lng: -122.3053 },
+                    'Queen Anne': { lat: 47.6258, lng: -122.3214 },
+                    'Capitol Hill': { lat: 47.6205, lng: -122.3493 },
+                    'Ballard': { lat: 47.6689, lng: -122.3760 },
+                    'Fremont': { lat: 47.6510, lng: -122.3506 },
+                    'West Seattle': { lat: 47.5667, lng: -122.3767 },
+                    'Bellevue': { lat: 47.6101, lng: -122.2015 }
+                };
+                
+                for (const [area, coords] of Object.entries(coordMap)) {
+                    if (address.includes(area)) {
+                        return coords.lng;
+                    }
+                }
+                return -122.3321; // Default to Seattle center
+            }
+
+            function getSafetyClass(score) {
+                if (score >= 7) return 'safety-high';
+                if (score >= 4) return 'safety-medium';
+                return 'safety-low';
+            }
+
+            function getSafetyIcon(score) {
+                if (score >= 7) return '🟢';
+                if (score >= 4) return '🟡';
+                return '🔴';
+            }
+
+            function getSafetyText(score) {
+                if (score >= 7) return 'Very Safe';
+                if (score >= 4) return 'Moderately Safe';
+                return 'Use Caution';
+            }
+
+            // Event listener for location selection
+            document.getElementById('safe-area-select').addEventListener('change', function() {
+                const selectedArea = this.value;
+                renderParkingResults(selectedArea);
+            });
+
+            // Initialize with no selection
+            renderParkingResults('');
+        });
+    </script>
 </body>
 
 </html>
