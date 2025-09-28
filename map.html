@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Splash - Flood Risk Map</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-    <link rel="stylesheet" href="../styles.css" />
-    <script defer src="../navbar/navbar.js"></script>
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <script defer src="assets/js/navigation.js"></script>
 
     <style>
         body, html {
@@ -332,7 +332,7 @@
             showLoading();
             try {
                 // Use local mock data instead of external API
-                const response = await fetch('../data/locations.json');
+                const response = await fetch('assets/data/locations.json');
                 const data = await response.json();
 
                 // Store current map state
@@ -454,7 +454,7 @@
         // Load weather data
         async function loadWeatherData() {
             try {
-                const response = await fetch('../data/weather.json');
+                const response = await fetch('assets/data/weather.json');
                 const weatherData = await response.json();
                 
                 // Update weather display
@@ -516,6 +516,6 @@
     </script>
     
     <!-- Mobile Quick Access FAB -->
-    <a href="../home/" class="quick-access-fab" title="Quick Access to Map">📍</a>
+    <a href="map.html" class="quick-access-fab" title="Quick Access to Map">📍</a>
 </body>
 </html>
