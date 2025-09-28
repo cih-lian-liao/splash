@@ -1,10 +1,21 @@
 /* Homepage Specific Styles */
 
+/* Override app-container for homepage to match other pages */
+.app-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-top: 80px; /* Add top margin to account for fixed navbar */
+}
+
 .home-main-card {
     background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.85));
     border-radius: 16px;
     padding: 30px;
-    margin: 20px auto;
+    margin: 20px 0;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(10px);
@@ -14,10 +25,6 @@
     overflow: hidden;
 }
 
-/* Ensure centering within flex parent */
-.app-container > .home-main-card {
-    align-self: center;
-}
 
 .home-main-card::before {
     content: '';
@@ -246,11 +253,18 @@
 
 /* Mobile Responsive */
 @media (max-width: 768px) {
+    .app-container {
+        padding: 10px;
+        margin-top: 0; /* Let page-specific cards handle top spacing to avoid double offset */
+        max-width: 100%;
+    }
+    
     .home-main-card {
         padding: 20px;
-        margin: 150px 10px 0 10px;
         border-radius: 12px;
-        max-width: none;
+        max-width: 100%;
+        width: 100%;
+        margin: 150px 10px;
     }
     
     .hero-section {
@@ -330,7 +344,8 @@
 @media (max-width: 480px) {
     .home-main-card {
         padding: 15px;
-        margin: 150px 5px 0 5px;
+        margin: 150px 10px;
+        max-width:90%;
     }
     
     .hero-section {
