@@ -9,6 +9,11 @@ html {
     color: #333;
 }
 
+/* Prevent horizontal scroll on mobile */
+html, body {
+    overflow-x: hidden;
+}
+
 /* Mobile-First Quick Access FAB */
 .quick-access-fab {
     position: fixed;
@@ -328,7 +333,7 @@ button {
 @media (max-width: 920px) {
     .app-container {
         padding: 10px;
-        margin-top: 120px; /* Increase top margin for mobile navbar */
+        margin-top: 0; /* Let page-specific cards handle top spacing to avoid double offset */
     }
 
     .emergency-contacts {
