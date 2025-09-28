@@ -213,6 +213,7 @@
 .report-content {
     color: #555;
     line-height: 1.6;
+    text-align: right;
 }
 
 .report-status {
@@ -250,6 +251,7 @@
     flex-wrap: wrap;
     gap: 10px;
     align-items: center;
+    justify-content: flex-end;
 }
 
 .report-severity {
@@ -499,12 +501,32 @@
     .report-header {
         flex-direction: column;
         align-items: flex-start;
+        gap: 5px;
+    }
+    
+    .report-location {
+        font-size: 1.1em;
+    }
+    
+    .report-time {
+        font-size: 0.9em;
+    }
+    
+    .report-content {
+        text-align: left;
+    }
+    
+    .report-card {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
         gap: 10px;
     }
     
     .report-meta {
         flex-direction: column;
         align-items: flex-start;
+        justify-content: flex-start;
     }
     
     .modal-content {
