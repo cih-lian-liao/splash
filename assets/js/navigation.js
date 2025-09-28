@@ -63,7 +63,7 @@ function fixNavbarPaths() {
         const basePath = `/${repoName}`;
         
         // Fix all links in the navbar
-        const navLinks = document.querySelectorAll('.nav-item, .nav-title');
+        const navLinks = document.querySelectorAll('.nav-item, .nav-title, .mobile-nav-btn');
         navLinks.forEach(link => {
             const href = link.getAttribute('href');
             if (href && href.startsWith('/')) {
