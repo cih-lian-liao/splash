@@ -9,7 +9,6 @@
     flex-direction: column;
     align-items: center;
     padding: 20px;
-    margin-top: 80px; /* Add space for fixed navbar */
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
@@ -20,13 +19,13 @@
     background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.85));
     border-radius: 16px;
     padding: 30px;
-    margin-bottom: 20px;
+    margin: 20px 0;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(10px);
     position: relative;
     width: 100%;
-    max-width: 1000px;
+    max-width: 1200px;
     overflow: hidden;
 }
 
@@ -376,13 +375,12 @@
 /* Mobile Responsive */
 @media (max-width: 768px) {
     .app-container {
-        margin-top: 120px; /* More space for mobile navbar */
         padding: 10px;
     }
     
     .parking-main-card {
         padding: 20px;
-        margin: 150px 10px 0 10px;
+        margin: 150px 10px;
         border-radius: 12px;
         max-width: none;
     }
@@ -470,7 +468,7 @@
 @media (max-width: 480px) {
     .parking-main-card {
         padding: 15px;
-        margin: 150px 5px 0 5px;
+        margin: 150px 5px;
     }
     
     .parking-header h2 {
