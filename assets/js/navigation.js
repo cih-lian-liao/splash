@@ -62,12 +62,16 @@ function fixNavbarPaths() {
         const repoName = window.location.pathname.split('/')[1];
         const basePath = `/${repoName}`;
         
+        console.log('GitHub Pages detected, repo name:', repoName, 'base path:', basePath);
+        
         // Fix all links in the navbar
         const navLinks = document.querySelectorAll('.nav-item, .nav-title, .mobile-nav-btn');
         navLinks.forEach(link => {
             const href = link.getAttribute('href');
             if (href && href.startsWith('/')) {
-                link.setAttribute('href', basePath + href);
+                const newHref = basePath + href;
+                console.log('Fixing link:', href, '->', newHref);
+                link.setAttribute('href', newHref);
             }
         });
         
@@ -79,5 +83,7 @@ function fixNavbarPaths() {
                 hamburgerIcon.setAttribute('src', basePath + src);
             }
         }
+    } else {
+        console.log('Not GitHub Pages, skipping path fixes');
     }
 }
