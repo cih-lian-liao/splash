@@ -459,7 +459,7 @@
 @media (max-width: 768px) {
     .emergency-main-card {
         padding: 15px;
-        margin: 150px 10px;
+        margin: 150px 10px 0 10px;
         border-radius: 12px;
         max-width: none;
     }
@@ -589,7 +589,7 @@
 @media (max-width: 480px) {
     .emergency-main-card {
         padding: 10px;
-        margin: 0 3px;
+        margin: 150px 3px 0 3px;
     }
 
     .emergency-header h2 {
