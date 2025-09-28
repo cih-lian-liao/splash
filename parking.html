@@ -14,13 +14,17 @@
     <div id="navbar"></div>
 
     <div class="app-container">
-        <div class="parking-header">
-            <h2>🅿️ Safe Parking Near You</h2>
-            <p class="parking-subtitle">Find the closest safe parking locations based on your current safe area</p>
-        </div>
+        <!-- Main Parking Card -->
+        <div class="parking-main-card">
+            <!-- Header Section -->
+            <div class="parking-header">
+                <h2>🅿️ Safe Parking Near You</h2>
+                <p class="parking-subtitle">Find the closest safe parking locations based on your current safe area</p>
+            </div>
 
+            <!-- Location Selector -->
             <div class="location-selector">
-                <label for="safe-area-select">Select your current safe area:</label>
+                <label for="safe-area-select">📍 Select your current safe area:</label>
                 <select id="safe-area-select">
                     <option value="">Choose your location...</option>
                     <option value="northgate">Northgate Area</option>
@@ -36,11 +40,13 @@
                 </select>
             </div>
 
-        <div class="parking-results" id="parking-results">
-            <div class="no-selection">
-                <div class="no-selection-icon">📍</div>
-                <h3>Select your location to find nearby parking</h3>
-                <p>Choose your current safe area from the dropdown above to see the closest available parking options.</p>
+            <!-- Parking Results -->
+            <div class="parking-results" id="parking-results">
+                <div class="no-selection">
+                    <div class="no-selection-icon">📍</div>
+                    <h3>Select your location to find nearby parking</h3>
+                    <p>Choose your current safe area from the dropdown above to see the closest available parking options.</p>
+                </div>
             </div>
         </div>
     </div>

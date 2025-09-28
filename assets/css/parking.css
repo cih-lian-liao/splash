@@ -1,14 +1,44 @@
 /* Parking Page Specific Styles */
 
+* {
+    box-sizing: border-box;
+}
+
 .app-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 20px;
-    margin-top: 100px; /* Add space for fixed navbar */
+    margin-top: 80px; /* Add space for fixed navbar */
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
+}
+
+/* Main Parking Card */
+.parking-main-card {
+    background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.85));
+    border-radius: 16px;
+    padding: 30px;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    position: relative;
+    width: 100%;
+    max-width: 1000px;
+    overflow: hidden;
+}
+
+.parking-main-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, #28a745, #20c997, #17a2b8);
+    border-radius: 16px 16px 0 0;
 }
 
 .parking-header {
@@ -20,12 +50,14 @@
     color: #2c3e50;
     margin-bottom: 10px;
     font-size: 2rem;
+    font-weight: 700;
 }
 
 .parking-subtitle {
     color: #666;
     font-size: 1.1rem;
     margin: 0;
+    line-height: 1.6;
 }
 
 .location-selector {
@@ -36,6 +68,9 @@
     margin-bottom: 30px;
     width: 100%;
     max-width: 500px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .location-selector label {
@@ -47,6 +82,7 @@
 
 .location-selector select {
     width: 100%;
+    max-width: 300px;
     padding: 12px;
     border: 2px solid #e0e0e0;
     border-radius: 8px;
@@ -54,11 +90,17 @@
     background: white;
     cursor: pointer;
     transition: border-color 0.3s ease;
+    margin: 0 auto;
+    display: block;
 }
 
 .location-selector select:focus {
     outline: none;
-    border-color: #3498db;
+    border-color: #28a745;
+}
+
+.location-selector select:hover {
+    border-color: #28a745;
 }
 
 .parking-results {
@@ -334,16 +376,23 @@
 /* Mobile Responsive */
 @media (max-width: 768px) {
     .app-container {
-        margin-top: 140px; /* More space for mobile navbar */
-        padding: 15px;
+        margin-top: 120px; /* More space for mobile navbar */
+        padding: 10px;
+    }
+    
+    .parking-main-card {
+        padding: 20px;
+        margin: 150px 10px 0 10px;
+        border-radius: 12px;
+        max-width: none;
     }
     
     .parking-header h2 {
-        font-size: 1.5rem;
+        font-size: 1.8em;
     }
     
     .parking-subtitle {
-        font-size: 1rem;
+        font-size: 0.95em;
     }
     
     .location-selector {
@@ -354,6 +403,7 @@
         display: flex;
         flex-direction: column;
         gap: 10px;
+        text-align: center;
     }
     
     .location-selector label {
@@ -414,5 +464,63 @@
         right: 10px;
         font-size: 0.7rem;
         padding: 3px 6px;
+    }
+}
+
+@media (max-width: 480px) {
+    .parking-main-card {
+        padding: 15px;
+        margin: 150px 5px 0 5px;
+    }
+    
+    .parking-header h2 {
+        font-size: 1.6em;
+    }
+    
+    .parking-subtitle {
+        font-size: 0.9em;
+    }
+    
+    .location-selector {
+        padding: 15px;
+        margin: 0 10px 15px 10px;
+    }
+    
+    .location-selector label {
+        font-size: 0.95em;
+    }
+    
+    .location-selector select {
+        padding: 10px;
+        font-size: 0.95em;
+    }
+    
+    .no-selection {
+        padding: 30px 10px;
+    }
+    
+    .no-selection-icon {
+        font-size: 2.5rem;
+    }
+    
+    .no-selection h3 {
+        font-size: 1.1rem;
+    }
+    
+    .no-selection p {
+        font-size: 0.9rem;
+    }
+    
+    .parking-item {
+        padding: 12px;
+    }
+    
+    .parking-item h3 {
+        font-size: 1em;
+    }
+    
+    .parking-item p {
+        font-size: 0.85em;
+        margin: 5px 0;
     }
 }
