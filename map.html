@@ -14,25 +14,41 @@
 <body>
     <div id="navbar"></div>
     <div class="app-container">
-        <div class="card">
-            <div class="loading-overlay">
-                <div class="spinner"></div>
+        <!-- Main Map Card -->
+        <div class="map-main-card">
+            <!-- Header Section -->
+            <div class="map-header">
+                <h2>🗺️ Flood Risk Map</h2>
+                <p class="map-subtitle">Interactive map showing real-time flood risk areas and community safety reports</p>
             </div>
-            <div id="map">
-                <div class="legend">
-                    <div class="legend-bar"></div>
-                    <div class="legend-labels">
-                        <span>Park</span>
-                        <span>Safe</span>
-                        <span></span>
-                        <span>Danger</span>
-                        <span>Flood</span>
+
+            <!-- Map Container -->
+            <div class="map-container">
+                <div class="loading-overlay">
+                    <div class="spinner"></div>
+                </div>
+                <div id="map">
+                    <div class="legend">
+                        <div class="legend-bar"></div>
+                        <div class="legend-labels">
+                            <span>Park</span>
+                            <span>Safe</span>
+                            <span></span>
+                            <span>Danger</span>
+                            <span>Flood</span>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="controls">
-                <button class="danger-btn" id="danger-btn">⚠️ Mark Dangerous</button>
-                <button class="safe-btn" id="safe-btn">✅ Mark Safe</button>
+
+            <!-- Map Controls -->
+            <div class="map-controls">
+                <h3>📍 Mark Your Location</h3>
+                <p class="controls-subtitle">Help the community by marking safe or dangerous areas</p>
+                <div class="controls">
+                    <button class="danger-btn" id="danger-btn">⚠️ Mark Dangerous</button>
+                    <button class="safe-btn" id="safe-btn">✅ Mark Safe</button>
+                </div>
             </div>
             
             <!-- Weather Information -->

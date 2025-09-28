@@ -1,5 +1,7 @@
 /* Map Page Specific Styles */
 
+* { box-sizing: border-box; }
+
 body, html {
     margin: 0;
     padding: 0;
@@ -13,69 +15,135 @@ body, html {
     flex-direction: column;
     align-items: center;
     padding: 20px;
-    margin-top: 60px; /* Add more space for fixed navbar */
 }
 
-.card {
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 90%;
-    margin: 20px 0;
-    padding: 20px;
-    text-align: center;
+/* Main Map Card */
+.map-main-card {
+    background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.85));
+    border-radius: 16px;
+    padding: 30px;
+    margin: 20px auto;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
     position: relative;
+    width: 100%;
+    max-width: 1200px;
+    overflow: hidden;
 }
 
-h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
+.map-main-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, #007bff, #00c6ff);
+    border-radius: 16px 16px 0 0;
+}
+
+/* Map Header */
+.map-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.map-header h2 {
+    font-size: 2.2em;
+    color: #2c3e50;
+    margin: 0 0 10px 0;
+    font-weight: 600;
+}
+
+.map-subtitle {
+    color: #7f8c8d;
+    font-size: 1.1em;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Map Container */
+.map-container {
+    position: relative;
+    margin-bottom: 30px;
 }
 
 #map {
     height: 500px;
-    border-radius: 8px;
+    border-radius: 12px;
     width: 100%;
     position: relative;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Map Controls */
+.map-controls {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.map-controls h3 {
+    font-size: 1.4em;
+    color: #2c3e50;
+    margin: 0 0 8px 0;
+    font-weight: 600;
+}
+
+.controls-subtitle {
+    color: #7f8c8d;
+    font-size: 0.95em;
+    margin: 0 0 20px 0;
+    line-height: 1.4;
 }
 
 .controls {
-    margin-top: 15px;
     display: flex;
-    gap: 10px;
+    gap: 15px;
     justify-content: center;
     flex-wrap: wrap;
 }
 
 button {
-    padding: 12px 20px;
+    padding: 14px 24px;
     font-size: 16px;
     margin: 0;
     cursor: pointer;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     color: white;
     transition: all 0.3s ease;
-    min-width: 140px;
-    font-weight: bold;
+    min-width: 160px;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
 }
 
 button:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+    transform: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .safe-btn {
-    background-color: #28a745;
+    background: linear-gradient(135deg, #28a745, #20c997);
+}
+
+.safe-btn:hover {
+    background: linear-gradient(135deg, #218838, #1ea085);
 }
 
 .danger-btn {
-    background-color: #dc3545;
+    background: linear-gradient(135deg, #dc3545, #e74c3c);
+}
+
+.danger-btn:hover {
+    background: linear-gradient(135deg, #c82333, #d63031);
 }
 
 .loading-overlay {
@@ -85,11 +153,12 @@ button:disabled {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.9);
     justify-content: center;
     align-items: center;
-    border-radius: 8px;
+    border-radius: 12px;
     z-index: 1000;
+    backdrop-filter: blur(5px);
 }
 
 .spinner {
@@ -176,8 +245,8 @@ button:disabled {
 
 /* Weather Info Styles */
 .weather-info {
-    margin-top: 20px;
-    padding: 20px;
+    margin-top: 0;
+    padding: 25px;
     background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
     border-radius: 16px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
@@ -298,27 +367,42 @@ button:disabled {
 /* Mobile Responsive */
 @media (max-width: 768px) {
     .app-container {
-        margin-top: 120px; /* More space for mobile navbar */
-        padding: 15px;
+        padding: 10px;
     }
     
-    .card {
-        width: 95%;
-        padding: 15px;
+    .map-main-card {
+        padding: 20px;
+        margin: 150px 10px 0 10px;
+        border-radius: 12px;
+        max-width: none;
+    }
+    
+    .map-header h2 {
+        font-size: 1.8em;
+    }
+    
+    .map-subtitle {
+        font-size: 1em;
     }
     
     #map {
         height: 400px;
+        border-radius: 8px;
+    }
+    
+    .map-controls h3 {
+        font-size: 1.2em;
     }
     
     .controls {
         flex-direction: column;
-        gap: 10px;
+        gap: 12px;
     }
     
     button {
         width: 100%;
         min-width: auto;
+        padding: 12px 20px;
     }
     
     .legend {
@@ -346,7 +430,7 @@ button:disabled {
     
     .weather-info {
         padding: 15px;
-        margin-top: 15px;
+        margin-top: 0;
     }
     
     .weather-header {
@@ -380,5 +464,96 @@ button:disabled {
     
     .weather-card-value {
         font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .map-main-card {
+        padding: 15px;
+        margin: 150px 5px 0 5px;
+    }
+    
+    .map-header h2 {
+        font-size: 1.6em;
+    }
+    
+    .map-subtitle {
+        font-size: 0.9em;
+    }
+    
+    #map {
+        height: 340px;
+    }
+    
+    .map-controls h3 {
+        font-size: 1.1em;
+    }
+    
+    .controls-subtitle {
+        font-size: 0.85em;
+    }
+    
+    button {
+        padding: 10px 16px;
+        font-size: 14px;
+    }
+    
+    .legend {
+        bottom: 5px;
+        left: 5px;
+        padding: 5px;
+        width: 18px;
+    }
+    
+    .legend-bar {
+        height: 110px;
+    }
+    
+    .legend-labels {
+        right: -16px;
+        font-size: 8px;
+    }
+    
+    .toast {
+        top: 150px;
+        left: 50%;
+        margin-left: -120px;
+        min-width: 240px;
+    }
+    
+    .weather-info {
+        padding: 12px;
+    }
+    
+    .weather-header {
+        gap: 8px;
+        margin-bottom: 12px;
+    }
+    
+    .weather-icon {
+        width: 45px;
+        height: 45px;
+        font-size: 1.8rem;
+    }
+    
+    .weather-title h3 {
+        font-size: 1.2rem;
+    }
+    
+    .weather-subtitle {
+        font-size: 0.8rem;
+    }
+    
+    .weather-card {
+        padding: 10px;
+    }
+    
+    .weather-card-icon {
+        font-size: 1.3rem;
+        min-width: 30px;
+    }
+    
+    .weather-card-value {
+        font-size: 1rem;
     }
 }
