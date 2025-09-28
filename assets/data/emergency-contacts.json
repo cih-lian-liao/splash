@@ -1,0 +1,338 @@
+{
+  "downtown": {
+    "name": "Downtown Seattle",
+    "emergencyServices": [
+      {
+        "name": "Emergency Services",
+        "number": "911",
+        "description": "Life-threatening emergencies, fires, medical emergencies"
+      },
+      {
+        "name": "Flood Control Hotline",
+        "number": "800-945-9263",
+        "description": "24/7 flood monitoring and control information"
+      }
+    ],
+    "medical": [
+      {
+        "name": "Harborview Medical Center",
+        "number": "206-744-3000",
+        "description": "Level 1 trauma center, emergency services",
+        "address": "325 9th Ave, Seattle, WA 98104"
+      },
+      {
+        "name": "Swedish First Hill",
+        "number": "206-386-6000",
+        "description": "Emergency services and trauma care",
+        "address": "747 Broadway, Seattle, WA 98122"
+      },
+      {
+        "name": "Seattle Fire Department - Station 2",
+        "number": "206-386-1400",
+        "description": "Downtown fire and medical services",
+        "address": "241 2nd Ave S, Seattle, WA 98104"
+      }
+    ],
+    "shelter": [
+      {
+        "name": "Downtown Emergency Service Center",
+        "number": "206-464-1570",
+        "description": "24/7 shelter and services for homeless",
+        "address": "515 3rd Ave, Seattle, WA 98104"
+      },
+      {
+        "name": "Union Gospel Mission",
+        "number": "206-622-5177",
+        "description": "Emergency shelter and meals",
+        "address": "318 2nd Ave Ext S, Seattle, WA 98104"
+      }
+    ],
+    "utilities": [
+      {
+        "name": "Seattle City Light - Downtown",
+        "number": "206-684-3000",
+        "description": "Power outages and electrical emergencies"
+      },
+      {
+        "name": "Seattle Public Utilities",
+        "number": "206-684-3000",
+        "description": "Water main breaks and sewer emergencies"
+      }
+    ]
+  },
+  "capitolhill": {
+    "name": "Capitol Hill",
+    "emergencyServices": [
+      {
+        "name": "Emergency Services",
+        "number": "911",
+        "description": "Life-threatening emergencies, fires, medical emergencies"
+      },
+      {
+        "name": "Flood Control Hotline",
+        "number": "800-945-9263",
+        "description": "24/7 flood monitoring and control information"
+      }
+    ],
+    "medical": [
+      {
+        "name": "Swedish Cherry Hill",
+        "number": "206-320-2000",
+        "description": "Emergency services and medical care",
+        "address": "500 17th Ave, Seattle, WA 98122"
+      },
+      {
+        "name": "Seattle Fire Department - Station 25",
+        "number": "206-386-1400",
+        "description": "Capitol Hill fire and medical services",
+        "address": "1400 19th Ave E, Seattle, WA 98112"
+      }
+    ],
+    "shelter": [
+      {
+        "name": "Capitol Hill Emergency Shelter",
+        "number": "206-684-4357",
+        "description": "Emergency shelter and assistance",
+        "address": "201 12th Ave, Seattle, WA 98122"
+      },
+      {
+        "name": "Seattle Central College Emergency",
+        "number": "206-934-3800",
+        "description": "Emergency shelter during disasters",
+        "address": "1701 Broadway, Seattle, WA 98122"
+      }
+    ],
+    "utilities": [
+      {
+        "name": "Seattle City Light - Capitol Hill",
+        "number": "206-684-3000",
+        "description": "Power outages and electrical emergencies"
+      },
+      {
+        "name": "Seattle Public Utilities",
+        "number": "206-684-3000",
+        "description": "Water main breaks and sewer emergencies"
+      }
+    ]
+  },
+  "queenanne": {
+    "name": "Queen Anne",
+    "emergencyServices": [
+      {
+        "name": "Emergency Services",
+        "number": "911",
+        "description": "Life-threatening emergencies, fires, medical emergencies"
+      },
+      {
+        "name": "Flood Control Hotline",
+        "number": "800-945-9263",
+        "description": "24/7 flood monitoring and control information"
+      }
+    ],
+    "medical": [
+      {
+        "name": "Swedish Ballard",
+        "number": "206-781-6000",
+        "description": "Emergency services and medical care",
+        "address": "5300 Tallman Ave NW, Seattle, WA 98107"
+      },
+      {
+        "name": "Seattle Fire Department - Station 20",
+        "number": "206-386-1400",
+        "description": "Queen Anne fire and medical services",
+        "address": "2800 15th Ave W, Seattle, WA 98119"
+      }
+    ],
+    "shelter": [
+      {
+        "name": "Queen Anne Emergency Shelter",
+        "number": "206-684-4357",
+        "description": "Emergency shelter and assistance",
+        "address": "100 W Harrison St, Seattle, WA 98119"
+      },
+      {
+        "name": "Seattle Center Emergency",
+        "number": "206-684-7200",
+        "description": "Emergency shelter during disasters",
+        "address": "305 Harrison St, Seattle, WA 98109"
+      }
+    ],
+    "utilities": [
+      {
+        "name": "Seattle City Light - Queen Anne",
+        "number": "206-684-3000",
+        "description": "Power outages and electrical emergencies"
+      },
+      {
+        "name": "Seattle Public Utilities",
+        "number": "206-684-3000",
+        "description": "Water main breaks and sewer emergencies"
+      }
+    ]
+  },
+  "ballard": {
+    "name": "Ballard",
+    "emergencyServices": [
+      {
+        "name": "Emergency Services",
+        "number": "911",
+        "description": "Life-threatening emergencies, fires, medical emergencies"
+      },
+      {
+        "name": "Flood Control Hotline",
+        "number": "800-945-9263",
+        "description": "24/7 flood monitoring and control information"
+      }
+    ],
+    "medical": [
+      {
+        "name": "Swedish Ballard",
+        "number": "206-781-6000",
+        "description": "Emergency services and medical care",
+        "address": "5300 Tallman Ave NW, Seattle, WA 98107"
+      },
+      {
+        "name": "Seattle Fire Department - Station 18",
+        "number": "206-386-1400",
+        "description": "Ballard fire and medical services",
+        "address": "5427 Russell Ave NW, Seattle, WA 98107"
+      }
+    ],
+    "shelter": [
+      {
+        "name": "Ballard Emergency Shelter",
+        "number": "206-684-4357",
+        "description": "Emergency shelter and assistance",
+        "address": "2014 NW 57th St, Seattle, WA 98107"
+      },
+      {
+        "name": "Ballard Community Center",
+        "number": "206-684-4093",
+        "description": "Emergency shelter during disasters",
+        "address": "6020 28th Ave NW, Seattle, WA 98107"
+      }
+    ],
+    "utilities": [
+      {
+        "name": "Seattle City Light - Ballard",
+        "number": "206-684-3000",
+        "description": "Power outages and electrical emergencies"
+      },
+      {
+        "name": "Seattle Public Utilities",
+        "number": "206-684-3000",
+        "description": "Water main breaks and sewer emergencies"
+      }
+    ]
+  },
+  "fremont": {
+    "name": "Fremont",
+    "emergencyServices": [
+      {
+        "name": "Emergency Services",
+        "number": "911",
+        "description": "Life-threatening emergencies, fires, medical emergencies"
+      },
+      {
+        "name": "Flood Control Hotline",
+        "number": "800-945-9263",
+        "description": "24/7 flood monitoring and control information"
+      }
+    ],
+    "medical": [
+      {
+        "name": "Swedish Ballard",
+        "number": "206-781-6000",
+        "description": "Emergency services and medical care",
+        "address": "5300 Tallman Ave NW, Seattle, WA 98107"
+      },
+      {
+        "name": "Seattle Fire Department - Station 9",
+        "number": "206-386-1400",
+        "description": "Fremont fire and medical services",
+        "address": "1101 N 45th St, Seattle, WA 98103"
+      }
+    ],
+    "shelter": [
+      {
+        "name": "Fremont Emergency Shelter",
+        "number": "206-684-4357",
+        "description": "Emergency shelter and assistance",
+        "address": "4001 Fremont Ave N, Seattle, WA 98103"
+      },
+      {
+        "name": "Fremont Community Center",
+        "number": "206-684-4090",
+        "description": "Emergency shelter during disasters",
+        "address": "4001 Fremont Ave N, Seattle, WA 98103"
+      }
+    ],
+    "utilities": [
+      {
+        "name": "Seattle City Light - Fremont",
+        "number": "206-684-3000",
+        "description": "Power outages and electrical emergencies"
+      },
+      {
+        "name": "Seattle Public Utilities",
+        "number": "206-684-3000",
+        "description": "Water main breaks and sewer emergencies"
+      }
+    ]
+  },
+  "university": {
+    "name": "University District",
+    "emergencyServices": [
+      {
+        "name": "Emergency Services",
+        "number": "911",
+        "description": "Life-threatening emergencies, fires, medical emergencies"
+      },
+      {
+        "name": "Flood Control Hotline",
+        "number": "800-945-9263",
+        "description": "24/7 flood monitoring and control information"
+      }
+    ],
+    "medical": [
+      {
+        "name": "UW Medical Center",
+        "number": "206-598-3300",
+        "description": "Level 1 trauma center, emergency services",
+        "address": "1959 NE Pacific St, Seattle, WA 98195"
+      },
+      {
+        "name": "Seattle Fire Department - Station 17",
+        "number": "206-386-1400",
+        "description": "U-District fire and medical services",
+        "address": "308 40th Ave NE, Seattle, WA 98105"
+      }
+    ],
+    "shelter": [
+      {
+        "name": "U-District Emergency Shelter",
+        "number": "206-684-4357",
+        "description": "Emergency shelter and assistance",
+        "address": "8520 25th Ave NE, Seattle, WA 98115"
+      },
+      {
+        "name": "UW Emergency Services",
+        "number": "206-685-7233",
+        "description": "Emergency shelter during disasters",
+        "address": "4069 Spokane Ln, Seattle, WA 98105"
+      }
+    ],
+    "utilities": [
+      {
+        "name": "Seattle City Light - U-District",
+        "number": "206-684-3000",
+        "description": "Power outages and electrical emergencies"
+      },
+      {
+        "name": "Seattle Public Utilities",
+        "number": "206-684-3000",
+        "description": "Water main breaks and sewer emergencies"
+      }
+    ]
+  }
+}

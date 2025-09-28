@@ -21,6 +21,19 @@
                 <h2>🚨 Emergency Response Center</h2>
                 <p class="emergency-subtitle">Critical contacts and resources for flood emergencies</p>
                 
+                <!-- Location Selector -->
+                <div class="location-selector">
+                    <label for="locationSelect">📍 Select Your Seattle Neighborhood:</label>
+                    <select id="locationSelect" onchange="changeLocation()">
+                        <option value="downtown">Downtown Seattle</option>
+                        <option value="capitolhill">Capitol Hill</option>
+                        <option value="queenanne">Queen Anne</option>
+                        <option value="ballard">Ballard</option>
+                        <option value="fremont">Fremont</option>
+                        <option value="university">University District</option>
+                    </select>
+                </div>
+                
                 <!-- Emergency Alert Banner -->
                 <div class="emergency-alert-banner">
                     <div class="alert-icon">⚠️</div>
@@ -54,102 +67,8 @@
             </div>
 
             <!-- Emergency Contacts Grid -->
-            <div class="emergency-contacts">
-                <div class="contact-category">
-                    <h3>🚨 Critical Emergency Services</h3>
-                    <div class="contact-grid">
-                        <div class="contact-item critical">
-                            <div class="contact-header">
-                                <div class="contact-icon">🚨</div>
-                                <h4>Emergency Services</h4>
-                            </div>
-                            <div class="contact-number">911</div>
-                            <p class="contact-description">Life-threatening emergencies, fires, medical emergencies</p>
-                            <button class="call-btn" onclick="callEmergency()">Call Now</button>
-                        </div>
-
-                        <div class="contact-item critical">
-                            <div class="contact-header">
-                                <div class="contact-icon">🌊</div>
-                                <h4>Flood Control Hotline</h4>
-                            </div>
-                            <div class="contact-number">800-945-9263</div>
-                            <p class="contact-description">24/7 flood monitoring and control information</p>
-                            <button class="call-btn" onclick="callFloodControl()">Call Now</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="contact-category">
-                    <h3>🏥 Medical & Health Services</h3>
-                    <div class="contact-grid">
-                        <div class="contact-item">
-                            <div class="contact-header">
-                                <div class="contact-icon">🏥</div>
-                                <h4>Harborview Medical Center</h4>
-                            </div>
-                            <div class="contact-number">206-744-3000</div>
-                            <p class="contact-description">Level 1 trauma center, emergency services</p>
-                            <div class="contact-address">325 9th Ave, Seattle, WA 98104</div>
-                        </div>
-
-                        <div class="contact-item">
-                            <div class="contact-header">
-                                <div class="contact-icon">🚑</div>
-                                <h4>Seattle Fire Department</h4>
-                            </div>
-                            <div class="contact-number">206-386-1400</div>
-                            <p class="contact-description">Non-emergency fire and medical services</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="contact-category">
-                    <h3>🏠 Shelter & Evacuation</h3>
-                    <div class="contact-grid">
-                        <div class="contact-item">
-                            <div class="contact-header">
-                                <div class="contact-icon">🏠</div>
-                                <h4>Emergency Shelter</h4>
-                            </div>
-                            <div class="contact-number">206-684-4357</div>
-                            <p class="contact-description">24/7 shelter information and assistance</p>
-                            <div class="contact-address">8520 25th Ave NE, Seattle, WA 98115</div>
-                        </div>
-
-                        <div class="contact-item">
-                            <div class="contact-header">
-                                <div class="contact-icon">🚌</div>
-                                <h4>Evacuation Transportation</h4>
-                            </div>
-                            <div class="contact-number">206-553-3000</div>
-                            <p class="contact-description">Emergency transportation during evacuations</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="contact-category">
-                    <h3>🔧 Utilities & Infrastructure</h3>
-                    <div class="contact-grid">
-                        <div class="contact-item">
-                            <div class="contact-header">
-                                <div class="contact-icon">⚡</div>
-                                <h4>Seattle City Light</h4>
-                            </div>
-                            <div class="contact-number">206-684-3000</div>
-                            <p class="contact-description">Power outages and electrical emergencies</p>
-                        </div>
-
-                        <div class="contact-item">
-                            <div class="contact-header">
-                                <div class="contact-icon">💧</div>
-                                <h4>Seattle Public Utilities</h4>
-                            </div>
-                            <div class="contact-number">206-684-3000</div>
-                            <p class="contact-description">Water main breaks and sewer emergencies</p>
-                        </div>
-                    </div>
-                </div>
+            <div class="emergency-contacts" id="emergencyContacts">
+                <!-- Content will be dynamically loaded based on selected location -->
             </div>
 
             <!-- Emergency Procedures -->
@@ -436,18 +355,136 @@
     <a href="map.html" class="quick-access-fab" title="Quick Access to Map">📍<span class="fab-text">Map</span></a>
 
     <script>
+        let emergencyData = {};
+        let currentLocation = 'downtown';
+
+        // Load emergency contacts data
+        async function loadEmergencyData() {
+            try {
+                const response = await fetch('assets/data/emergency-contacts.json');
+                emergencyData = await response.json();
+                loadLocationContacts(currentLocation);
+            } catch (error) {
+                console.error('Error loading emergency data:', error);
+                // Fallback to default Downtown data
+                loadLocationContacts('downtown');
+            }
+        }
+
+        // Change location and update contacts
+        function changeLocation() {
+            const select = document.getElementById('locationSelect');
+            currentLocation = select.value;
+            loadLocationContacts(currentLocation);
+            localStorage.setItem('emergencyLocation', currentLocation);
+        }
+
+        // Load contacts for specific location
+        function loadLocationContacts(location) {
+            if (!emergencyData[location]) return;
+
+            const locationData = emergencyData[location];
+            const contactsContainer = document.getElementById('emergencyContacts');
+            
+            contactsContainer.innerHTML = `
+                <div class="contact-category">
+                    <h3>🚨 Critical Emergency Services</h3>
+                    <div class="contact-grid">
+                        ${locationData.emergencyServices.map(service => `
+                            <div class="contact-item critical">
+                                <div class="contact-header">
+                                    <div class="contact-icon">🚨</div>
+                                    <h4>${service.name}</h4>
+                                </div>
+                                <div class="contact-number">${service.number}</div>
+                                <p class="contact-description">${service.description}</p>
+                                <button class="call-btn" onclick="callNumber('${service.number}')">Call Now</button>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+
+                <div class="contact-category">
+                    <h3>🏥 Medical & Health Services</h3>
+                    <div class="contact-grid">
+                        ${locationData.medical.map(service => `
+                            <div class="contact-item">
+                                <div class="contact-header">
+                                    <div class="contact-icon">🏥</div>
+                                    <h4>${service.name}</h4>
+                                </div>
+                                <div class="contact-number">${service.number}</div>
+                                <p class="contact-description">${service.description}</p>
+                                ${service.address ? `<div class="contact-address">${service.address}</div>` : ''}
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+
+                <div class="contact-category">
+                    <h3>🏠 Shelter & Evacuation</h3>
+                    <div class="contact-grid">
+                        ${locationData.shelter.map(service => `
+                            <div class="contact-item">
+                                <div class="contact-header">
+                                    <div class="contact-icon">🏠</div>
+                                    <h4>${service.name}</h4>
+                                </div>
+                                <div class="contact-number">${service.number}</div>
+                                <p class="contact-description">${service.description}</p>
+                                ${service.address ? `<div class="contact-address">${service.address}</div>` : ''}
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+
+                <div class="contact-category">
+                    <h3>🔧 Utilities & Infrastructure</h3>
+                    <div class="contact-grid">
+                        ${locationData.utilities.map(service => `
+                            <div class="contact-item">
+                                <div class="contact-header">
+                                    <div class="contact-icon">⚡</div>
+                                    <h4>${service.name}</h4>
+                                </div>
+                                <div class="contact-number">${service.number}</div>
+                                <p class="contact-description">${service.description}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
         // Emergency action functions
         function callEmergency() {
             window.location.href = 'tel:911';
         }
 
         function callFloodControl() {
-            window.location.href = 'tel:8009459263';
+            if (emergencyData[currentLocation] && emergencyData[currentLocation].emergencyServices[1]) {
+                const number = emergencyData[currentLocation].emergencyServices[1].number.replace(/[^0-9]/g, '');
+                window.location.href = `tel:${number}`;
+            } else {
+                window.location.href = 'tel:911';
+            }
+        }
+
+        function callNumber(number) {
+            const cleanNumber = number.replace(/[^0-9]/g, '');
+            window.location.href = `tel:${cleanNumber}`;
         }
 
         function findShelter() {
-            // Could integrate with map to show nearby shelters
-            alert('Emergency Shelter: 8520 25th Ave NE, Seattle, WA 98115\nPhone: 206-684-4357');
+            if (emergencyData[currentLocation] && emergencyData[currentLocation].shelter[0]) {
+                const shelter = emergencyData[currentLocation].shelter[0];
+                const message = shelter.address ? 
+                    `Emergency Shelter: ${shelter.address}\nPhone: ${shelter.number}` :
+                    `Emergency Shelter\nPhone: ${shelter.number}`;
+                alert(message);
+            } else {
+                alert('Emergency Shelter information not available for this location.');
+            }
         }
 
         function reportEmergency() {
@@ -457,21 +494,34 @@
 
         // Emergency kit checklist functionality
         document.addEventListener('DOMContentLoaded', function() {
-            const checkboxes = document.querySelectorAll('.kit-checkbox');
-            checkboxes.forEach(checkbox => {
-                checkbox.addEventListener('change', function() {
-                    // Save checklist progress to localStorage
-                    const kitData = JSON.parse(localStorage.getItem('emergencyKit') || '{}');
-                    kitData[this.parentElement.textContent.trim()] = this.checked;
-                    localStorage.setItem('emergencyKit', JSON.stringify(kitData));
-                });
+            // Load saved location preference
+            const savedLocation = localStorage.getItem('emergencyLocation');
+            if (savedLocation && emergencyData[savedLocation]) {
+                currentLocation = savedLocation;
+                document.getElementById('locationSelect').value = savedLocation;
+            }
 
-                // Load saved checklist progress
-                const kitData = JSON.parse(localStorage.getItem('emergencyKit') || '{}');
-                if (kitData[checkbox.parentElement.textContent.trim()]) {
-                    checkbox.checked = kitData[checkbox.parentElement.textContent.trim()];
-                }
-            });
+            // Load emergency data and initialize
+            loadEmergencyData();
+
+            // Initialize checklist functionality
+            setTimeout(() => {
+                const checkboxes = document.querySelectorAll('.kit-checkbox');
+                checkboxes.forEach(checkbox => {
+                    checkbox.addEventListener('change', function() {
+                        // Save checklist progress to localStorage
+                        const kitData = JSON.parse(localStorage.getItem('emergencyKit') || '{}');
+                        kitData[this.parentElement.textContent.trim()] = this.checked;
+                        localStorage.setItem('emergencyKit', JSON.stringify(kitData));
+                    });
+
+                    // Load saved checklist progress
+                    const kitData = JSON.parse(localStorage.getItem('emergencyKit') || '{}');
+                    if (kitData[checkbox.parentElement.textContent.trim()]) {
+                        checkbox.checked = kitData[checkbox.parentElement.textContent.trim()];
+                    }
+                });
+            }, 100);
         });
     </script>
 </body>
