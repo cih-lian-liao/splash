@@ -18,15 +18,16 @@
             <div class="loading-overlay">
                 <div class="spinner"></div>
             </div>
-            <div id="map"></div>
-            <div class="legend">
-                <div class="legend-bar"></div>
-                <div class="legend-labels">
-                    <span>Park</span>
-                    <span>Safe</span>
-                    <span></span>
-                    <span>Danger</span>
-                    <span>Flood</span>
+            <div id="map">
+                <div class="legend">
+                    <div class="legend-bar"></div>
+                    <div class="legend-labels">
+                        <span>Park</span>
+                        <span>Safe</span>
+                        <span></span>
+                        <span>Danger</span>
+                        <span>Flood</span>
+                    </div>
                 </div>
             </div>
             <div class="controls">
@@ -35,24 +36,46 @@
             </div>
             
             <!-- Weather Information -->
-            <div class="weather-info" id="weather-info" style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; display: none;">
-                <h3>🌤️ Current Weather</h3>
-                <div class="weather-details">
-                    <div class="weather-item">
-                        <span class="weather-label">Temperature:</span>
-                        <span class="weather-value" id="temperature">--°C</span>
+            <div class="weather-info" id="weather-info" style="display: none;">
+                <div class="weather-header">
+                    <div class="weather-icon">🌤️</div>
+                    <div class="weather-title">
+                        <h3>Current Weather</h3>
+                        <p class="weather-subtitle">Real-time conditions</p>
                     </div>
-                    <div class="weather-item">
-                        <span class="weather-label">Rainfall:</span>
-                        <span class="weather-value" id="rainfall">--mm</span>
+                </div>
+                
+                <div class="weather-grid">
+                    <div class="weather-card weather-card-risk">
+                        <div class="weather-card-icon">⚠️</div>
+                        <div class="weather-card-content">
+                            <div class="weather-card-label">Flood Risk</div>
+                            <div class="weather-card-value" id="flood-risk">--</div>
+                        </div>
                     </div>
-                    <div class="weather-item">
-                        <span class="weather-label">Condition:</span>
-                        <span class="weather-value" id="condition">--</span>
+                    
+                    <div class="weather-card">
+                        <div class="weather-card-icon">🌡️</div>
+                        <div class="weather-card-content">
+                            <div class="weather-card-label">Temperature</div>
+                            <div class="weather-card-value" id="temperature">--°C</div>
+                        </div>
                     </div>
-                    <div class="weather-item">
-                        <span class="weather-label">Flood Risk:</span>
-                        <span class="weather-value" id="flood-risk">--</span>
+                    
+                    <div class="weather-card">
+                        <div class="weather-card-icon">🌧️</div>
+                        <div class="weather-card-content">
+                            <div class="weather-card-label">Rainfall</div>
+                            <div class="weather-card-value" id="rainfall">--mm</div>
+                        </div>
+                    </div>
+                    
+                    <div class="weather-card">
+                        <div class="weather-card-icon">☁️</div>
+                        <div class="weather-card-content">
+                            <div class="weather-card-label">Condition</div>
+                            <div class="weather-card-value" id="condition">--</div>
+                        </div>
                     </div>
                 </div>
             </div>
