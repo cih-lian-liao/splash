@@ -48,7 +48,53 @@
 .emergency-subtitle {
     color: #6c757d;
     font-size: 1.2em;
+    margin-bottom: 20px;
+}
+
+/* Location Selector */
+.location-selector {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     margin-bottom: 30px;
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.location-selector::before { display: none; }
+
+.location-selector label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.location-selector select {
+    width: 100%;
+    max-width: 300px;
+    padding: 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: white;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+    margin: 0 auto;
+    display: block;
+}
+
+.location-selector select:focus {
+    outline: none;
+    border-color: #3498db;
+}
+
+.location-selector select:hover {
+    border-color: #3498db;
 }
 
 /* Emergency Alert Banner */
@@ -472,6 +518,35 @@
         font-size: 0.95em;
     }
 
+    .location-selector {
+        padding: 20px;
+        margin: 0 20px 20px 20px;
+        height: 100%;
+        width: 90%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+
+    .location-selector label {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 5px;
+    }
+
+    .location-selector select {
+        padding: 12px;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        font-size: 1rem;
+        background: white;
+        color: #2c3e50;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
     .emergency-alert-banner {
         flex-direction: column;
         text-align: center;
@@ -598,6 +673,22 @@
 
     .emergency-subtitle {
         font-size: 0.9em;
+    }
+
+    .location-selector {
+        padding: 10px;
+        margin-bottom: 12px;
+    }
+
+    .location-selector label {
+        font-size: 0.85em;
+        margin-bottom: 5px;
+    }
+
+    .location-selector select {
+        padding: 6px 10px;
+        font-size: 0.85em;
+        max-width: 200px;
     }
 
     .action-btn {
