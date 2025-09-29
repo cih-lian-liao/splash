@@ -70,7 +70,18 @@ function fixNavbarPaths() {
             const href = link.getAttribute('href');
             if (href && href.startsWith('/')) {
                 const newHref = basePath + href;
-                console.log('Fixing link:', href, '->', newHref);
+                console.log('Fixing navbar link:', href, '->', newHref);
+                link.setAttribute('href', newHref);
+            }
+        });
+        
+        // Also fix any CTA buttons or other page links
+        const ctaButtons = document.querySelectorAll('.cta-button, .quick-access-fab');
+        ctaButtons.forEach(link => {
+            const href = link.getAttribute('href');
+            if (href && !href.startsWith('http') && !href.startsWith('#') && href.includes('.html')) {
+                const newHref = href.startsWith('/') ? basePath + href : basePath + '/' + href;
+                console.log('Fixing CTA button/link:', href, '->', newHref);
                 link.setAttribute('href', newHref);
             }
         });
