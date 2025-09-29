@@ -94,6 +94,27 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Community Intelligence Section -->
+                <div class="community-intelligence" id="community-intelligence" style="display: none;">
+                    <div class="intelligence-header">
+                        <div class="intelligence-icon">🧠</div>
+                        <div class="intelligence-title">
+                            <h4>Community Intelligence</h4>
+                            <p class="intelligence-subtitle">Real-time crowd insights</p>
+                        </div>
+                    </div>
+                    <div class="intelligence-grid">
+                        <div class="intelligence-item">
+                            <span class="intelligence-label">Community Influence:</span>
+                            <span class="intelligence-value" id="community-influence">Neutral</span>
+                        </div>
+                        <div class="intelligence-item">
+                            <span class="intelligence-label">Nearby Reports:</span>
+                            <span class="intelligence-value" id="nearby-reports-count">0</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -102,6 +123,7 @@
     <div id="toast" class="toast"></div>
 
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="assets/js/weather-api.js"></script>
     <script>
         // Initialize map
         const map = L.map('map');
@@ -290,27 +312,68 @@
             });
         }
 
-        // Load weather data
+        // Initialize real-time weather API
+        // Option 1: OpenWeatherMap (free: 1000/day, paid: unlimited)
+        // Option 2: National Weather Service (100% free, US only)
+        const weatherAPI = new WeatherAPI('NO_API_KEY_NEEDED', 'nws');
+        
+        // Load weather data (real-time)
         async function loadWeatherData() {
             try {
-                const response = await fetch('assets/data/weather.json');
-                const weatherData = await response.json();
+                let weatherData;
+                
+                // Try to get real-time data first
+                if (currentCenter) {
+                    try {
+                        weatherData = await weatherAPI.getCurrentWeather(currentCenter.lat, currentCenter.lng);
+                        
+                        // Cache the real-time data
+                        localStorage.setItem('realtimeWeatherCache', JSON.stringify({
+                            ...weatherData,
+                            coordinates: currentCenter,
+                            timestamp: Date.now()
+                        }));
+                    } catch (apiError) {
+                        console.warn('Weather API failed, using fallback:', apiError);
+                        weatherData = null; // Force fallback
+                    }
+                }
+                
+                // Fallback to cached data or static data
+                if (!weatherData) {
+                    const cachedData = localStorage.getItem('realtimeWeatherCache');
+                    if (cachedData) {
+                        const cache = JSON.parse(cachedData);
+                        // Use cache if less than 10 minutes old
+                        if (Date.now() - cache.timestamp < 600000) {
+                            weatherData = cache;
+                        }
+                    }
+                    
+                    // Final fallback to static data
+                    if (!weatherData) {
+                        const response = await fetch('assets/data/weather.json');
+                        const staticData = await response.json();
+                        weatherData = staticData.current;
+                        // Add basic flood risk if missing
+                        if (!weatherData.floodRisk) {
+                            weatherData.floodRisk = 'Low';
+                        }
+                    }
+                }
                 
                 // Update weather display
-                document.getElementById('temperature').textContent = `${weatherData.current.temperature}°C`;
-                document.getElementById('rainfall').textContent = `${weatherData.current.rainfall}mm`;
-                document.getElementById('condition').textContent = weatherData.current.condition;
+                document.getElementById('temperature').textContent = `${weatherData.temperature}°C`;
+                document.getElementById('rainfall').textContent = `${weatherData.rainfall.toFixed(1)}mm`;
+                document.getElementById('condition').textContent = weatherData.condition;
                 
-                // Calculate flood risk based on rainfall
-                let floodRisk = 'Low';
+                // Use calculated flood risk
+                const floodRisk = weatherData.floodRisk || 'Low';
                 let riskClass = 'flood-risk-low';
-                if (weatherData.current.rainfall > 5) {
-                    floodRisk = 'High';
-                    riskClass = 'flood-risk-high';
-                } else if (weatherData.current.rainfall > 2) {
-                    floodRisk = 'Medium';
-                    riskClass = 'flood-risk-medium';
-                }
+                
+                if (floodRisk === 'Critical') riskClass = 'flood-risk-critical';
+                else if (floodRisk === 'High') riskClass = 'flood-risk-high';
+                else if (floodRisk === 'Medium') riskClass = 'flood-risk-medium';
                 
                 const floodRiskElement = document.getElementById('flood-risk');
                 floodRiskElement.textContent = floodRisk;
@@ -319,15 +382,74 @@
                 // Show weather info
                 document.getElementById('weather-info').style.display = 'block';
                 
-                // Show alerts if any
-                if (weatherData.alerts && weatherData.alerts.length > 0) {
-                    weatherData.alerts.forEach(alert => {
-                        showToast(`⚠️ ${alert.message}`, 'dangerous');
-                    });
+                // Update community intelligence section
+                updateCommunityIntelligence(weatherData);
+                
+                // Enhanced alerts with user report context
+                let alertMessage = '';
+                if (weatherData.userReportInfluence && weatherData.userReportInfluence !== 0) {
+                    const influence = weatherData.userReportInfluence;
+                    if (influence > 15) {
+                        alertMessage += `⚠️ Community activity suggests ${influence > 0 ? 'increased' : 'reduced'} local flood risk. `;
+                    }
+                    if (weatherData.nearbyReports && weatherData.nearbyReports.length > 0) {
+                        alertMessage += `📍 ${weatherData.nearbyReports.length} recent community reports nearby.`;
+                    }
+                } else if (floodRisk === 'High' || floodRisk === 'Critical') {
+                    alertMessage = `⚠️ ${floodRisk} flood risk detected in your area!`;
                 }
+                
+                if (alertMessage) {
+                    showToast(alertMessage, floodRisk === 'Critical' || (weatherData.userReportInfluence && weatherData.userReportInfluence > 15) ? 'dangerous' : 'info');
+                }
+                
+                console.log('Weather data updated:', weatherData);
                 
             } catch (error) {
                 console.error('Error loading weather data:', error);
+                // Show fallback weather info
+                document.getElementById('weather-info').style.display = 'block';
+            }
+        }
+
+        // Update community intelligence section
+        function updateCommunityIntelligence(weatherData) {
+            const communityIntelligence = document.getElementById('community-intelligence');
+            
+            if (!communityIntelligence) return;
+            
+            // Show the community intelligence section
+            communityIntelligence.style.display = 'block';
+            
+            // Update community influence
+            if (weatherData.userReportInfluence !== undefined) {
+                const influence = weatherData.userReportInfluence;
+                let influenceText = 'Neutral';
+                if (influence > 15) influenceText = 'High Risk ⬆️';
+                else if (influence > 5) influenceText = 'Moderate Risk ⬆️';
+                else if (influence < -5) influenceText = 'Lower Risk ⬇️';
+                
+                document.getElementById('community-influence').textContent = influenceText;
+            } else {
+                document.getElementById('community-influence').textContent = 'Available';
+            }
+            
+            // Update nearby reports count
+            if (weatherData.nearbyReports && weatherData.nearbyReports.length >= 0) {
+                document.getElementById('nearby-reports-count').textContent = weatherData.nearbyReports.length;
+            } else {
+                // Count recent reports from localStorage
+                try {
+                    const allReports = JSON.parse(localStorage.getItem('userReports') || '[]');
+                    const recentReports = allReports.filter(report => {
+                        const reportTime = new Date(report.timestamp);
+                        const now = new Date();
+                        return (now - reportTime) < 24 * 60 * 60 * 1000; // Last 24 hours
+                    });
+                    document.getElementById('nearby-reports-count').textContent = recentReports.length;
+                } catch (error) {
+                    document.getElementById('nearby-reports-count').textContent = '0';
+                }
             }
         }
 

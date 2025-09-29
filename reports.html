@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="assets/css/main.css" />
     <link rel="stylesheet" href="assets/css/reports.css" />
     <script defer src="assets/js/navigation.js"></script>
+    <script src="assets/js/weather-api.js"></script>
 </head>
 
 <body>
@@ -100,21 +101,32 @@
                 <div class="loading-message">Loading community reports...</div>
             </div>
 
-            <!-- Weather Integration -->
+            <!-- Enhanced Weather & Community Intelligence -->
             <div class="weather-integration">
-                <h3>🌤️ Current Weather Conditions</h3>
+                <h3>🌤️ Intelligent Risk Assessment</h3>
                 <div class="weather-summary" id="weather-summary">
                     <div class="weather-item">
                         <span class="weather-label">Temperature:</span>
-                        <span class="weather-value" id="current-temp">--°C</span>
+                        <span class="weather-value" id="current-temp">--°C</span>         
                     </div>
                     <div class="weather-item">
                         <span class="weather-label">Rainfall:</span>
                         <span class="weather-value" id="current-rainfall">--mm</span>
                     </div>
                     <div class="weather-item">
-                        <span class="weather-label">Flood Risk:</span>
+                        <span class="weather-label">Combined Flood Risk:</span>
                         <span class="weather-value" id="flood-risk-level">--</span>
+                    </div>
+                    <!-- New Community Intelligence Section -->
+                    <div class="community-intelligence">
+                        <div class="intelligence-item">
+                            <span class="intelligence-label">Community Influence:</span>
+                            <span class="intelligence-value" id="community-influence">--</span>
+                        </div>
+                        <div class="intelligence-item">
+                            <span class="intelligence-label">Nearby Reports:</span>
+                            <span class="intelligence-value" id="nearby-reports-count">--</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -212,26 +224,91 @@
                 });
         }
 
-        // Load weather data
-        function loadWeatherData() {
-            fetch('assets/data/weather.json')
-                .then(response => response.json())
-                .then(weatherData => {
-                    document.getElementById('current-temp').textContent = `${weatherData.current.temperature}°C`;
-                    document.getElementById('current-rainfall').textContent = `${weatherData.current.rainfall}mm`;
-                    
-                    // Calculate flood risk
-                    let floodRisk = 'Low';
-                    if (weatherData.current.rainfall > 5) {
-                        floodRisk = 'High';
-                    } else if (weatherData.current.rainfall > 2) {
-                        floodRisk = 'Medium';
+        // Load weather data with community intelligence integration
+        async function loadWeatherData() {
+            try {
+                // Initialize WeatherAPI if available
+                let weatherAPI = null;
+                if (typeof WeatherAPI !== 'undefined') {
+                    weatherAPI = new WeatherAPI('NO_API_KEY_NEEDED', 'nws');
+                }
+                
+                let weatherData = null;
+                
+                // Try to get real-time data first (if weatherAPI available)
+                if (weatherAPI) {
+                    try {
+                        // Default to Seattle coordinates for city overview
+                        weatherData = await weatherAPI.getCurrentWeather(47.6062, -122.3321);
+                        
+                        // Cache the enhanced data
+                        localStorage.setItem('realtimeWeatherCache', JSON.stringify({
+                            ...weatherData,
+                            timestamp: Date.now()
+                        }));
+                    } catch (apiError) {
+                        console.warn('API unavailable, using fallback data:', apiError);
                     }
-                    document.getElementById('flood-risk-level').textContent = floodRisk;
-                })
-                .catch(error => {
-                    console.error('Error loading weather data:', error);
-                });
+                }
+                
+                // Fallback to cached or static data
+                if (!weatherData) {
+                    const cachedData = localStorage.getItem('realtimeWeatherCache');
+                    if (cachedData) {
+                        const cache = JSON.parse(cachedData);
+                        if (Date.now() - cache.timestamp < 600000) { // 10 minutes
+                            weatherData = cache;
+                        }
+                    }
+                    
+                    // Final fallback to static data
+                    if (!weatherData) {
+                        const response = await fetch('assets/data/weather.json');
+                        const staticData = await response.json();
+                        weatherData = staticData.current;
+                    }
+                }
+                
+                // Update weather display
+                document.getElementById('current-temp').textContent = `${weatherData.temperature}°C`;
+                document.getElementById('current-rainfall').textContent = `${weatherData.rainfall.toFixed(1)}mm`;
+                document.getElementById('flood-risk-level').textContent = weatherData.floodRisk || 'Low';
+                
+                // Update community intelligence
+                if (weatherData.userReportInfluence !== undefined) {
+                    const influence = weatherData.userReportInfluence;
+                    let influenceText = 'Neutral';
+                    if (influence > 15) influenceText = 'High Risk ⬆️';
+                    else if (influence > 5) influenceText = 'Moderate Risk ⬆️';
+                    else if (influence < -5) influenceText = 'Lower Risk ⬇️';
+                    
+                    document.getElementById('community-influence').textContent = influenceText;
+                } else {
+                    document.getElementById('community-influence').textContent = 'Available';
+                }
+                
+                if (weatherData.nearbyReports) {
+                    document.getElementById('nearby-reports-count').textContent = weatherData.nearbyReports.length;
+                } else {
+                    // Count from localStorage reports
+                    const recentReports = JSON.parse(localStorage.getItem('userReports') || '[]')
+                        .filter(report => {
+                            const reportTime = new Date(report.timestamp);
+                            const now = new Date();
+                            return (now - reportTime) < 24 * 60 * 60 * 1000;
+                        });
+                    document.getElementById('nearby-reports-count').textContent = recentReports.length;
+                }
+                
+            } catch (error) {
+                console.error('Error loading weather data:', error);
+                // Fallback show static data
+                document.getElementById('current-temp').textContent = '--°C';
+                document.getElementById('current-rainfall').textContent = '--mm';
+                document.getElementById('flood-risk-level').textContent = 'Unknown';
+                document.getElementById('community-influence').textContent = 'Unavailable';
+                document.getElementById('nearby-reports-count').textContent = '--';
+            }
         }
 
         // Setup event listeners

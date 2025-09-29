@@ -315,44 +315,83 @@
     border-radius: 4px;
 }
 
-/* Weather Integration */
+/* Enhanced Weather Integration with Community Intelligence */
 .weather-integration {
-    background: white;
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 15px;
+    padding: 25px;
     margin-bottom: 30px;
+    color: white;
+    box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
 }
 
 .weather-integration h3 {
-    color: #2c3e50;
-    margin-bottom: 15px;
-    font-size: 1.3em;
+    color: white;
+    margin-bottom: 20px;
+    font-size: 1.4em;
+    font-weight: 600;
 }
 
 .weather-summary {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 15px;
+    gap: 20px;
 }
 
 .weather-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    background: #f8f9fa;
-    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 15px;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .weather-label {
-    color: #666;
+    display: block;
+    color: rgba(255, 255, 255, 0.8);
     font-size: 0.9em;
+    margin-bottom: 8px;
 }
 
 .weather-value {
+    display: block;
     font-weight: 600;
-    color: #2c3e50;
+    color: white;
+    font-size: 1.2em;
+}
+
+/* Community Intelligence Section */
+.community-intelligence {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.intelligence-item {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 12px 15px;
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.intelligence-label {
+    display: block;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.85em;
+    margin-bottom: 5px;
+}
+
+.intelligence-value {
+    display: block;
+    font-weight: 600;
+    color: #ffd700;
+    font-size: 1em;
 }
 
 /* Modal Styles */

@@ -5,7 +5,8 @@
     "rainfall": 2.5,
     "condition": "Light Rain",
     "windSpeed": 12,
-    "pressure": 1013
+    "pressure": 1013,
+    "floodRisk": "Medium"
   },
   "forecast": [
     {
